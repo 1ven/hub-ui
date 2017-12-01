@@ -1,10 +1,9 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
-import GitHub from "./github";
-import { routes as parentRoutes } from "../";
+import Login from "./login";
 
 export default ({ match }) => (
   <Switch>
-    <Route exact path={match.url + "/github"} component={GitHub} />
+    <Route exact path={match.url + "/login"} component={Login} />
   </Switch>
 );

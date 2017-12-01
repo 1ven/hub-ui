@@ -28,6 +28,7 @@
     "redux-server-middleware": "^1.0.5",
     "reselect": "^3.0.1",
     "rxjs": "^5.5.2",
-    "styled-components": "^2.2.3"
+    "styled-components": "^2.2.3",
+    "url-join": "^2.0.2"
   }
 }
