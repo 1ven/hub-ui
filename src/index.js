@@ -18,11 +18,11 @@ const { store, persistor } = createStore(history);
 
 const App = () => (
   <Provider store={store}>
-    {/* <PersistGate persistor={persistor}> */}
-    <ConnectedRouter history={history}>
-      <Root />
-    </ConnectedRouter>
-    {/* </PersistGate> */}
+    <PersistGate persistor={persistor}>
+      <ConnectedRouter history={history}>
+        <Root />
+      </ConnectedRouter>
+    </PersistGate>
   </Provider>
 );
 
