@@ -19,6 +19,6 @@ export default combineEpics(
         return push(authRoutes.login);
       }
 
-      return push(rootRoutes.orgs);
+      return push(rootRoutes.workspaces);
     })
 );
