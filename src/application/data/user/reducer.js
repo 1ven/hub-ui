@@ -5,8 +5,10 @@ import * as api from "./api";
 
 const githubTokenReducer = (state = null, action) => {
   switch (action.type) {
-    case api.authenticateGitHub.types.success:
-      return action.payload.body.access_token;
+    case types.AUTHENTICATE:
+      return action.payload.token;
+    case types.UNAUHTENTICATE:
+      return null;
     default:
       return state;
   }
@@ -15,9 +17,6 @@ const githubTokenReducer = (state = null, action) => {
 export default persistReducer(
   { storage, key: "githubToken", whitelist: ["githubToken"] },
   combineReducers({
-    api: combineReducers({
-      authenticateGithub: api.authenticateGitHub.reducer
-    }),
     githubToken: githubTokenReducer
   })
 );
