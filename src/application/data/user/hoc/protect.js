@@ -2,11 +2,10 @@ import React from "react";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { compose, lifecycle } from "recompose";
-import { push } from "react-router-redux";
-import { routes } from "application/routes";
 import { isAuthenticated } from "../selectors";
+import { protectRedirect } from "../actions";
 
-export default Component =>
+export default test => Component =>
   compose(
     connect(
       createStructuredSelector({
@@ -15,10 +14,10 @@ export default Component =>
     ),
     lifecycle({
       componentDidMount() {
-        const { isAuthenticated, dispatch } = this.props;
-        if (!isAuthenticated) {
-          dispatch(push(routes.main));
+        const { dispatch } = this.props;
+        if (!test(this.props)) {
+          dispatch(protectRedirect());
         }
       }
     })
-  )(props => (props.isAuthenticated ? <Component {...props} /> : null));
+  )(props => (test(props) ? <Component {...props} /> : null));
