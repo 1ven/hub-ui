@@ -1,4 +1,4 @@
-import React from "react";
+import { F } from "ramda";
+import { protect } from "application/data/user/hoc";
 
-export default () =>
-  "will redirect depending whether user authenticated or not";
+export default protect(F)(F);
