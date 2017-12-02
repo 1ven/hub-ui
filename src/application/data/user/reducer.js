@@ -1,7 +1,7 @@
 import { combineReducers } from "redux";
 import { persistReducer } from "redux-persist";
 import storage from "redux-persist/es/storage";
-import * as api from "./api";
+import * as types from "./types";
 
 const githubTokenReducer = (state = null, action) => {
   switch (action.type) {
