@@ -1,6 +1,6 @@
 import { compose, prop } from "ramda";
 
-export const scopeSelector = state => state.app.data.user;
+export const scopeSelector = state => state.modules.user;
 
 export const getToken = compose(prop("githubToken"), scopeSelector);
 

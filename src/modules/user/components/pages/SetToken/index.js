@@ -1,8 +1,8 @@
 import { compose, lifecycle } from "recompose";
 import { F, prop, not } from "ramda";
 import { connect } from "react-redux";
-import { actions as userActions } from "application/data/user";
-import { protect } from "application/data/user/hoc";
+import { actions } from "../../../data";
+import { protect } from "../../../hoc";
 
 export default compose(
   protect(compose(not, prop("isAuthenticated"))),
@@ -10,7 +10,7 @@ export default compose(
   lifecycle({
     componentDidMount() {
       const { dispatch, match } = this.props;
-      dispatch(userActions.authenticate(match.params.token));
+      dispatch(actions.authenticate(match.params.token));
     }
   })
 )(F);

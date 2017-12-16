@@ -1,7 +1,7 @@
 import { compose, withProps } from "recompose";
 import { prop, not } from "ramda";
 import join from "url-join";
-import { protect } from "application/data/user/hoc";
+import { protect } from "../../../hoc";
 import View from "./View";
 
 const { REACT_APP_API: api, REACT_APP_HOST: host } = process.env;

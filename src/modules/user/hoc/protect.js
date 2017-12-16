@@ -2,8 +2,8 @@ import React from "react";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { compose, lifecycle } from "recompose";
-import { isAuthenticated } from "../selectors";
-import { protectRedirect } from "../actions";
+import { isAuthenticated } from "../data/selectors";
+import { protectRedirect } from "../data/actions";
 
 export default test => Component =>
   compose(

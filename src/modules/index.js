@@ -1,9 +1,9 @@
 import { combineReducers } from "redux";
 import { combineEpics } from "redux-observable";
-import { reducer as userReducer, epic as userEpic } from "./user";
+import * as user from "./user";
 
 export const reducer = combineReducers({
-  user: userReducer
+  user: user.data.reducer
 });
 
-export const epic = combineEpics(userEpic);
+export const epic = combineEpics(user.data.epic);

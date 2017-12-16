@@ -9,19 +9,18 @@ import { PersistGate } from "redux-persist/es/integration/react";
 import { ConnectedRouter } from "react-router-redux";
 import { createStore } from "core/redux";
 import bootstrap from "core/bootstrap";
-import Root from "./application";
+import app from "./gateway";
+import { reducer, epic } from "./modules";
 
 bootstrap();
 
 const history = createBrowserHistory();
-const { store, persistor } = createStore(history);
+const { store, persistor } = createStore(reducer, epic, history);
 
 const App = () => (
   <Provider store={store}>
     <PersistGate persistor={persistor}>
-      <ConnectedRouter history={history}>
-        <Root />
-      </ConnectedRouter>
+      <ConnectedRouter history={history}>{app}</ConnectedRouter>
     </PersistGate>
   </Provider>
 );

@@ -1,4 +1,4 @@
 import { F } from "ramda";
-import { protect } from "application/data/user/hoc";
+import { protect } from "../../../hoc";
 
 export default protect(F)(F);

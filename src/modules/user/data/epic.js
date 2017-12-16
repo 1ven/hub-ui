@@ -3,9 +3,9 @@ import { combineEpics } from "redux-observable";
 import * as types from "./types";
 import { isAuthenticated } from "./selectors";
 import { protectRedirect } from "./actions";
-import { routes as authRoutes } from "application/routes/auth";
-import { routes as rootRoutes } from "application/routes";
+import { paths } from "gateway";
 
+// TODO: should it be in `protect` hoc instead?
 export default combineEpics(
   action$ =>
     action$
@@ -16,9 +16,11 @@ export default combineEpics(
       const state = store.getState();
 
       if (!isAuthenticated(state)) {
-        return push(authRoutes.login);
+        return push(paths.login);
       }
 
-      return push(rootRoutes.workspaces);
+      // TODO: redirect on last workspace / getting started page
+      // return push(rootRoutes.workspace);
+      return push("/w/1ven-org/front-end");
     })
 );
