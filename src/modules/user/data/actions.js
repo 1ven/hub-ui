@@ -9,6 +9,6 @@ export const unauthenticate = () => ({
   type: types.UNAUHTENTICATE
 });
 
-export const protectRedirect = () => ({
-  type: types.PROTECT_REDIRECT
+export const authenticationRedirect = () => ({
+  type: types.AUTHENTICATION_REDIRECT
 });

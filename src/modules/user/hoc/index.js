@@ -1,1 +1,1 @@
-export { default as protect } from "./protect";
+export { default as authenticated } from "./authenticated";

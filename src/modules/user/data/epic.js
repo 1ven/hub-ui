@@ -2,25 +2,24 @@ import { push } from "react-router-redux";
 import { combineEpics } from "redux-observable";
 import * as types from "./types";
 import { isAuthenticated } from "./selectors";
-import { protectRedirect } from "./actions";
+import { authenticationRedirect } from "./actions";
 import { paths } from "gateway";
 
-// TODO: should it be in `protect` hoc instead?
 export default combineEpics(
   action$ =>
     action$
       .ofType(types.AUTHENTICATE, types.UNAUHTENTICATE)
-      .mapTo(protectRedirect()),
+      .mapTo(authenticationRedirect()),
   (action$, store) =>
-    action$.ofType(types.PROTECT_REDIRECT).map(() => {
+    action$.ofType(types.AUTHENTICATION_REDIRECT).map(() => {
       const state = store.getState();
 
+      // get that from action payload?
       if (!isAuthenticated(state)) {
         return push(paths.login);
       }
 
-      // TODO: redirect on last workspace / getting started page
-      // return push(rootRoutes.workspace);
+      // redirect to "/", where will be working `authorized`
       return push("/w/1ven-org/front-end");
     })
 );

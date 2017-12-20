@@ -3,8 +3,9 @@ import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { compose, lifecycle } from "recompose";
 import { isAuthenticated } from "../data/selectors";
-import { protectRedirect } from "../data/actions";
+import { authenticationRedirect } from "../data/actions";
 
+// rename to `authenticated`
 export default test => Component =>
   compose(
     connect(
@@ -15,8 +16,8 @@ export default test => Component =>
     lifecycle({
       componentDidMount() {
         const { dispatch } = this.props;
-        if (!test(this.props)) {
-          dispatch(protectRedirect());
+        if (!test(this.props.isAuthenticated)) {
+          dispatch(authenticationRedirect());
         }
       }
     })
