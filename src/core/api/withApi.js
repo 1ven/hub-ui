@@ -34,7 +34,7 @@ export default (
   )(
     props =>
       !props._api.data || props._api.isFetching ? (
-        false
+        "Loading..."
       ) : (
         <Component {...apiToProps && withApiProps(props, apiToProps)} />
       )
