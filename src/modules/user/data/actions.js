@@ -12,3 +12,7 @@ export const unauthenticate = () => ({
 export const authenticationRedirect = () => ({
   type: types.AUTHENTICATION_REDIRECT
 });
+
+export const authorizationRedirect = () => ({
+  type: types.AUTHORIZATION_REDIRECT
+});

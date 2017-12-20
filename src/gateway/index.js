@@ -6,7 +6,8 @@ export const paths = {
   main: "/",
   login: "/auth/login",
   setToken: "/auth/set-token/:token",
-  workspace: "/w/:org/:slug"
+  workspace: "/w/:org/:slug",
+  noWorkspaces: "/no-workspaces"
 };
 
 const Root = ({ route }) => renderRoutes(route.routes);
@@ -34,6 +35,11 @@ export default renderRoutes([
         path: paths.workspace,
         exact: true,
         component: workspace.cmp.pages.Main
+      },
+      {
+        path: paths.noWorkspaces,
+        exact: true,
+        component: workspace.cmp.pages.NoWorkspaces
       }
     ]
   }

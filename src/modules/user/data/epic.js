@@ -1,9 +1,11 @@
 import { push } from "react-router-redux";
 import { combineEpics } from "redux-observable";
-import * as types from "./types";
-import { isAuthenticated } from "./selectors";
-import { authenticationRedirect } from "./actions";
 import { paths } from "gateway";
+import { replaceParams } from "core/utils";
+import * as types from "./types";
+import * as api from "./api";
+import { isAuthenticated } from "./selectors";
+import { authenticationRedirect, authorizationRedirect } from "./actions";
 
 export default combineEpics(
   action$ =>
@@ -17,5 +19,29 @@ export default combineEpics(
       if (!isAuthenticated(state)) {
         return push(paths.login);
       }
+
+      return authorizationRedirect();
+    }),
+  (action$, store) =>
+    action$.ofType(types.AUTHORIZATION_REDIRECT).map(() => {
+      const state = store.getState();
+      const user = api.fetchUser.selectors.data(state);
+
+      if (!user) {
+        return authenticationRedirect();
+      }
+
+      const firstWorkspace = user.workspaces[0];
+
+      if (!firstWorkspace) {
+        return push(paths.noWorkspaces);
+      }
+
+      return push(
+        replaceParams(paths.workspace, {
+          org: firstWorkspace.assigned_to,
+          slug: firstWorkspace.slug
+        })
+      );
     })
 );
