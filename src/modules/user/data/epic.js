@@ -14,7 +14,6 @@ export default combineEpics(
     action$.ofType(types.AUTHENTICATION_REDIRECT).map(() => {
       const state = store.getState();
 
-      // get that from action payload?
       if (!isAuthenticated(state)) {
         return push(paths.login);
       }

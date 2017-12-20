@@ -1,4 +1,5 @@
 import React from "react";
+import Container from "../Container";
 
 export default ({ children, workspaces, isLoading }) =>
   isLoading ? (
@@ -6,14 +7,23 @@ export default ({ children, workspaces, isLoading }) =>
   ) : (
     <div className="h-100 flex flex-column">
       <div className="pv3 w-100 bg-white black bb b--moon-gray">
-        <select>
-          <option disabled>Select workspace</option>
-          {workspaces.map(w => (
-            <option key={w.id} value={w.id}>
-              {w.assigned_to + "/" + w.slug}
-            </option>
-          ))}
-        </select>
+        <Container>
+          <div className="flex items-center">
+            <select>
+              <option disabled>Select workspace</option>
+              {workspaces.map(w => (
+                <option key={w.id} value={w.id}>
+                  {w.assigned_to + "/" + w.slug}
+                </option>
+              ))}
+            </select>
+            <div className="ml-auto">
+              <a href="" className="link fw6 mid-gray hover-black">
+                Settings
+              </a>
+            </div>
+          </div>
+        </Container>
       </div>
       <div className="flex-auto bg-near-white">{children}</div>
     </div>

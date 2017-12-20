@@ -5,7 +5,6 @@ import { compose, lifecycle } from "recompose";
 import { isAuthenticated } from "../data/selectors";
 import { authenticationRedirect } from "../data/actions";
 
-// rename to `authenticated`
 export default test => Component =>
   compose(
     connect(
@@ -21,4 +20,4 @@ export default test => Component =>
         }
       }
     })
-  )(props => (test(props) ? <Component {...props} /> : null));
+  )(props => (test(props.isAuthenticated) ? <Component {...props} /> : null));
