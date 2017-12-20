@@ -4,8 +4,8 @@ export default ({ children, workspaces, isLoading }) =>
   isLoading ? (
     <div>Loading...</div>
   ) : (
-    <div>
-      <div className="pv3 w-100 bg-black white">
+    <div className="h-100 flex flex-column">
+      <div className="pv3 w-100 bg-white black bb b--moon-gray">
         <select>
           <option disabled>Select workspace</option>
           {workspaces.map(w => (
@@ -14,8 +14,7 @@ export default ({ children, workspaces, isLoading }) =>
             </option>
           ))}
         </select>
-        header
       </div>
-      {children}
+      <div className="flex-auto bg-near-white">{children}</div>
     </div>
   );
