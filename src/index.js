@@ -1,5 +1,5 @@
-import "rxjs";
 import "isomorphic-fetch";
+import "rxjs";
 
 import React from "react";
 import ReactDOM from "react-dom";

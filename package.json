@@ -26,12 +26,10 @@
     "redux": "^3.7.2",
     "redux-observable": "^0.17.0",
     "redux-persist": "^5.4.0",
-    "redux-server-middleware": "^1.0.5",
+    "redux-server-middleware": "^1.0.8",
     "reselect": "^3.0.1",
     "rxjs": "^5.5.5",
     "styled-components": "^2.2.3",
-    "swifty-api": "^0.0.11",
-    "swifty-core": "^1.1.0",
     "url-join": "^2.0.2"
   }
 }

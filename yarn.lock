@@ -308,13 +308,6 @@ aws4@^1.2.1, aws4@^1.6.0:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/aws4/-/aws4-1.6.0.tgz#83ef5ca860b2b32e4a0deedee8c771b9db57471e"
 
-axios@^0.16.2:
-  version "0.16.2"
-  resolved "https://registry.yarnpkg.com/axios/-/axios-0.16.2.tgz#ba4f92f17167dfbab40983785454b9ac149c3c6d"
-  dependencies:
-    follow-redirects "^1.2.3"
-    is-buffer "^1.1.5"
-
 axobject-query@^0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/axobject-query/-/axobject-query-0.1.0.tgz#62f59dbc59c9f9242759ca349960e7a2fe3c36c0"
@@ -2614,12 +2607,6 @@ flat-cache@^1.2.1:
 flatten@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/flatten/-/flatten-1.0.2.tgz#dae46a9d78fbe25292258cc1e780a41d95c03782"
-
-follow-redirects@^1.2.3:
-  version "1.2.6"
-  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.2.6.tgz#4dcdc7e4ab3dd6765a97ff89c3b4c258117c79bf"
-  dependencies:
-    debug "^3.1.0"
 
 for-in@^1.0.1:
   version "1.0.2"
@@ -5136,10 +5123,6 @@ raf@3.4.0:
   dependencies:
     performance-now "^2.1.0"
 
-ramda@^0.24.1:
-  version "0.24.1"
-  resolved "https://registry.yarnpkg.com/ramda/-/ramda-0.24.1.tgz#c3b7755197f35b8dc3502228262c4c91ddb6b857"
-
 ramda@^0.25.0:
   version "0.25.0"
   resolved "https://registry.yarnpkg.com/ramda/-/ramda-0.25.0.tgz#8fdf68231cffa90bc2f9460390a0cb74a29b29a9"
@@ -5431,9 +5414,9 @@ redux-persist@^5.4.0:
   version "5.4.0"
   resolved "https://registry.yarnpkg.com/redux-persist/-/redux-persist-5.4.0.tgz#a1062313546a9d4ca6f9271464d18f736e8ca394"
 
-redux-server-middleware@^1.0.5:
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/redux-server-middleware/-/redux-server-middleware-1.0.5.tgz#1ebdd0eb4df4fc87267aa2319e7a01d779470d41"
+redux-server-middleware@^1.0.8:
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/redux-server-middleware/-/redux-server-middleware-1.0.8.tgz#4227a1f43d1be6acf5da5404378cb888b5686607"
   dependencies:
     ramda "^0.25.0"
 
@@ -6157,19 +6140,6 @@ sw-toolbox@^3.4.0:
   dependencies:
     path-to-regexp "^1.0.1"
     serviceworker-cache-polyfill "^4.0.0"
-
-swifty-api@^0.0.11:
-  version "0.0.11"
-  resolved "https://registry.yarnpkg.com/swifty-api/-/swifty-api-0.0.11.tgz#bcd2c7271002b373a682c3a91c068aedb71a1972"
-  dependencies:
-    axios "^0.16.2"
-    ramda "^0.24.1"
-
-swifty-core@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/swifty-core/-/swifty-core-1.1.0.tgz#e26e2727615c404801e09d6072bd56e39109839d"
-  dependencies:
-    rxjs "^5.5.5"
 
 symbol-observable@1.0.1:
   version "1.0.1"
