@@ -17,8 +17,5 @@ export default combineEpics(
       if (!isAuthenticated(state)) {
         return push(paths.login);
       }
-
-      // redirect to "/", where will be working `authorized`
-      return push("/w/1ven-org/front-end");
     })
 );

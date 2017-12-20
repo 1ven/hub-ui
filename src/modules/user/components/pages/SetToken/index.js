@@ -2,10 +2,10 @@ import { compose, lifecycle } from "recompose";
 import { F } from "ramda";
 import { connect } from "react-redux";
 import { actions } from "../../../data";
-import { authenticated } from "../../../hoc";
+import { unauthenticated } from "../../../hoc";
 
 export default compose(
-  authenticated(isAuthenticated => !isAuthenticated),
+  unauthenticated,
   connect(),
   lifecycle({
     componentDidMount() {

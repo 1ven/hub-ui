@@ -1,4 +1,4 @@
 import { F } from "ramda";
-import { authenticated } from "../../../hoc";
+import { unauthenticated } from "../../../hoc";
 
-export default authenticated(F)(F);
+export default unauthenticated(F);

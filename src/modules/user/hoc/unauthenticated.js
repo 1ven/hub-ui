@@ -17,9 +17,9 @@ export default Component =>
     ),
     lifecycle({
       componentDidMount() {
-        if (!this.props.isAuthenticated) {
+        if (this.props.isAuthenticated) {
           this.props.redirect();
         }
       }
     })
-  )(props => (props.isAuthenticated ? <Component {...props} /> : null));
+  )(props => (!props.isAuthenticated ? <Component {...props} /> : null));
