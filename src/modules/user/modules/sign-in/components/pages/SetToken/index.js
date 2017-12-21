@@ -1,16 +1,15 @@
 import { compose, lifecycle } from "recompose";
 import { F } from "ramda";
 import { connect } from "react-redux";
-import { actions } from "../../../data";
-import { unauthenticated } from "../../../hoc";
+import * as user from "modules/user";
 
 export default compose(
-  unauthenticated,
+  user.hoc.unauthenticated,
   connect(),
   lifecycle({
     componentDidMount() {
       const { dispatch, match } = this.props;
-      dispatch(actions.authenticate(match.params.token));
+      dispatch(user.data.actions.authenticate(match.params.token));
     }
   })
 )(F);

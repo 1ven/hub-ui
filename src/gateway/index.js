@@ -1,14 +1,8 @@
 import { renderRoutes } from "react-router-config";
+import paths from "./paths";
 import * as user from "modules/user";
+import * as userSignIn from "modules/user/modules/sign-in";
 import * as workspace from "modules/workspace";
-
-export const paths = {
-  main: "/",
-  login: "/auth/login",
-  setToken: "/auth/set-token/:token",
-  workspace: "/w/:org/:slug",
-  noWorkspaces: "/no-workspaces"
-};
 
 const Root = ({ route }) => renderRoutes(route.routes);
 
@@ -24,12 +18,12 @@ export default renderRoutes([
       {
         path: paths.login,
         exact: true,
-        component: user.cmp.pages.Login
+        component: userSignIn.cmp.pages.Login
       },
       {
         path: paths.setToken,
         exact: true,
-        component: user.cmp.pages.SetToken
+        component: userSignIn.cmp.pages.SetToken
       },
       {
         path: paths.workspace,

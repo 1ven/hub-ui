@@ -1,6 +1,6 @@
 import { push } from "react-router-redux";
 import { combineEpics } from "redux-observable";
-import { paths } from "gateway";
+import paths from "gateway/paths";
 import { replaceParams } from "core/utils";
 import * as types from "./types";
 import * as api from "./api";
