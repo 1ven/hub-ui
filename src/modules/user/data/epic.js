@@ -20,7 +20,7 @@ export default combineEpics(
         return push(paths.login);
       }
 
-      return authorizationRedirect();
+      return push(paths.main);
     }),
   (action$, store) =>
     action$.ofType(types.AUTHORIZATION_REDIRECT).map(() => {
