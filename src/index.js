@@ -10,7 +10,7 @@ import { ConnectedRouter } from "react-router-redux";
 import { createStore } from "core/redux";
 import bootstrap from "core/bootstrap";
 import app from "./gateway";
-import { reducer, epic } from "./modules";
+import { reducer, epic } from "./application";
 
 bootstrap();
 

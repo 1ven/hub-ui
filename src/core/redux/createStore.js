@@ -10,7 +10,7 @@ export default (reducer, epic, history) => {
   const store = createStore(
     combineReducers({
       router: routerReducer,
-      modules: reducer
+      app: reducer
     }),
     composeEnhancers(
       applyMiddleware(
