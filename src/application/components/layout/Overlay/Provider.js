@@ -4,7 +4,7 @@ import { find, prop } from "ramda";
 import { hoc } from "core/redux";
 import { withApi } from "core/api";
 import * as workspaceData from "application/modules/workspace/data";
-import { user as userData } from "../../data";
+import { api } from "../../../data/user";
 import View from "./View";
 
 export default compose(
@@ -12,7 +12,7 @@ export default compose(
   hoc.withActions({
     onWorkspaceChange: workspaceData.actions.switchWorkspace
   }),
-  withApi(userData.api.fetchUser, api => ({
+  withApi(api.fetchUser, api => ({
     workspaces: api.data.workspaces,
     isLoading: !api.lastUpdated
   })),

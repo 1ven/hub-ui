@@ -1,13 +1,13 @@
 import { combineReducers } from "redux";
 import { combineEpics } from "redux-observable";
-import * as data from "./data";
+import * as user from "./data/user";
 import * as workspace from "./modules/workspace";
 
 export const reducer = combineReducers({
   // _modules: combineReducers({
   //   workspace: workspace.reducer
   // }),
-  user: data.user.reducer
+  user: user.reducer
 });
 
-export const epic = combineEpics(data.user.epic, workspace.epic);
+export const epic = combineEpics(user.epic, workspace.epic);
