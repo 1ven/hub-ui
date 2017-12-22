@@ -5,7 +5,7 @@ import { replaceParams } from "core/utils";
 import * as types from "./types";
 import * as api from "./api";
 import { isAuthenticated } from "./selectors";
-import { authenticationRedirect, authorizationRedirect } from "./actions";
+import { authenticationRedirect } from "./actions";
 
 export default combineEpics(
   action$ =>

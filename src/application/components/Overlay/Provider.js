@@ -1,7 +1,6 @@
-import { compose, lifecycle, withProps, withHandlers } from "recompose";
+import { compose, withProps } from "recompose";
 import { withRouter } from "react-router-dom";
-import { find, prop, whereEq } from "ramda";
-import { connect } from "react-redux";
+import { find, prop } from "ramda";
 import { hoc } from "core/redux";
 import { withApi } from "core/api";
 import * as workspaceData from "application/modules/workspace/data";
