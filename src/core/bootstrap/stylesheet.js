@@ -49,6 +49,27 @@ export default () => injectGlobal`
   .mb-auto {
     margin-bottom: auto;
   }
+  .relative {
+    position: relative;
+  }
+  .absolute {
+    position: absolute;
+  }
+  .fixed {
+    position: fixed;
+  }
+  .t-0 {
+    top: 0;
+  }
+  .l-0 {
+    left: 0;
+  }
+  .b-0 {
+    bottom: 0;
+  }
+  .r-0 {
+    right: 0;
+  }
 
   .container {
     padding: 0 1rem;
