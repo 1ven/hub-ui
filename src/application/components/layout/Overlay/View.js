@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Switch from "./Switch";
+import * as modal from "../../modal";
 
 const Header = styled.div`
   height: 3.25rem;
@@ -47,5 +48,8 @@ export default ({
         </div>
       </Header>
       <div className="flex-auto">{children}</div>
+      <modal.Wrap>
+        <modal.Box title="Create workspace">test</modal.Box>
+      </modal.Wrap>
     </div>
   );
