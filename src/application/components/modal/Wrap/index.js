@@ -9,11 +9,11 @@ const Wrap = styled.div`
   background-color: rgba(0, 33, 66, 0.5);
 `;
 
-export default ({ children, onHide }) => (
+export default ({ children, onClose }) => (
   <Portal>
     <Wrap
       className="fixed t-0 l-0 w-100 h-100 flex items-center justify-center"
-      onClick={onHide}
+      onClick={onClose}
     >
       {children}
     </Wrap>
