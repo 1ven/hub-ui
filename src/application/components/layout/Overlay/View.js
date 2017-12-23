@@ -1,5 +1,21 @@
 import React from "react";
-import { Container } from "core/components/grid";
+import styled from "styled-components";
+import Switch from "./Switch";
+
+const Header = styled.div`
+  height: 3.25rem;
+  border-bottom: 1px solid #dedede;
+`;
+
+const Link = styled.a`
+  font-size: 0.9375rem;
+  font-weight: 600;
+  text-decoration: none;
+  color: #353535;
+  &:hover {
+    color: #000000;
+  }
+`;
 
 export default ({
   children,
@@ -12,30 +28,24 @@ export default ({
     <div>Loading...</div>
   ) : (
     <div className="h-100 flex flex-column">
-      <div className="pv3 w-100 bg-white black bb b--moon-gray">
-        <Container>
-          <div className="flex items-center">
-            <select
-              onChange={e =>
-                onWorkspaceChange(workspaces.find(w => w.id == e.target.value))
-              }
-              value={selected}
-            >
-              <option disabled>Select workspace</option>
-              {workspaces.map(w => (
-                <option key={w.id} value={w.id}>
-                  {w.assigned_to + "/" + w.slug}
-                </option>
-              ))}
-            </select>
-            <div className="ml-auto">
-              <a href="" className="link fw6 mid-gray hover-black">
-                Settings
-              </a>
-            </div>
-          </div>
-        </Container>
-      </div>
-      <div className="flex-auto bg-near-white">{children}</div>
+      <Header className="w-100 container flex items-center">
+        <Switch
+          onChange={e =>
+            onWorkspaceChange(workspaces.find(w => w.id == e.target.value))
+          }
+          value={selected}
+        >
+          <option disabled>Select workspace</option>
+          {workspaces.map(w => (
+            <option key={w.id} value={w.id}>
+              {w.assigned_to + "/" + w.slug}
+            </option>
+          ))}
+        </Switch>
+        <div className="ml-auto">
+          <Link href="#">Settings</Link>
+        </div>
+      </Header>
+      <div className="flex-auto">{children}</div>
     </div>
   );

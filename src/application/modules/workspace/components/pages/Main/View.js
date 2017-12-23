@@ -1,4 +1,8 @@
 import React from "react";
-import { Overlay } from "application/components/layout";
+import { Overlay, SideBody } from "application/components/layout";
 
-export default () => <Overlay>workspaces</Overlay>;
+export default () => (
+  <Overlay>
+    <SideBody />
+  </Overlay>
+);
