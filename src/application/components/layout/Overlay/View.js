@@ -31,7 +31,8 @@ export default ({
   onWorkspaceChange,
   onCreateWorkspace,
   selected,
-  isLoading
+  isLoading,
+  isModalVisible
 }) =>
   isLoading ? (
     <div>Loading...</div>
@@ -57,6 +58,6 @@ export default ({
         </div>
       </Header>
       <div className="flex-auto">{children}</div>
-      <CreateModal />
+      {isModalVisible && <CreateModal />}
     </div>
   );

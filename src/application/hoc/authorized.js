@@ -1,8 +1,8 @@
 import React from "react";
 import { compose, lifecycle } from "recompose";
 import { T } from "ramda";
-import { hoc } from "core/redux";
-import { withApi } from "core/api";
+import { hoc } from "core/data/redux";
+import { withApi } from "core/data/api";
 import { fetchUser } from "../data/user/api";
 import { authorizationRedirect } from "../data/user/actions";
 import authenticated from "./authenticated";
