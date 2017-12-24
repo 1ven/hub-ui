@@ -1,27 +1,34 @@
 import React from "react";
 import styled from "styled-components";
-import { Icon } from "core/components/kit";
+import { Icon, Button } from "core/components/kit";
+import { colors } from "core/theme";
 
 const Wrap = styled.div`
   border-radius: 2px;
   max-width: 45rem;
   width: 100%;
+  background-color: #fff;
+  border-radius: 2px;
 `;
 
 const Header = styled.div`
-  background-color: #ecf0f1;
-  border-top-left-radius: 2px;
-  border-top-right-radius: 2px;
   padding: 0 1.5rem;
   height: 4rem;
   font-size: 1.125rem;
   font-weight: 600;
-  color: #3d3e3e;
+  color: ${colors.lightBlack};
 `;
 
 const Body = styled.div`
-  padding: 1.5rem;
-  background-color: #fff;
+  padding: 0 1.5rem 1.5rem;
+`;
+
+const Footer = styled.div`
+  background-color: ${colors.gray};
+  border-top: 1px solid ${colors.darkGray};
+  padding: 1rem 1.5rem;
+  border-bottom-left-radius: 2px;
+  border-bottom-right-radius: 2px;
 `;
 
 const Close = styled(Icon)`
@@ -31,12 +38,24 @@ const Close = styled(Icon)`
   font-weight: 600;
 `;
 
+const Cancel = styled(Button)`
+  margin-right: 0.75rem;
+`;
+
 export default ({ title, children, onClose }) => (
-  <Wrap>
+  <Wrap onClick={e => e.stopPropagation()}>
     <Header className="flex items-center">
       {title}
-      <Close name="close" size="1.25" />
+      <Close onClick={onClose} name="close" size="1.25" />
     </Header>
     <Body>{children}</Body>
+    <Footer className="flex items-center">
+      <div className="ml-auto">
+        <Cancel theme="bordered" onClick={onClose}>
+          Cancel
+        </Cancel>
+        <Button>Create</Button>
+      </div>
+    </Footer>
   </Wrap>
 );

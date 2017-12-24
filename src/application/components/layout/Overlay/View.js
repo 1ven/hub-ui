@@ -1,27 +1,35 @@
 import React from "react";
 import styled from "styled-components";
+import { Icon } from "core/components/kit";
+import { colors } from "core/theme";
 import Switch from "./Switch";
 import CreateModal from "./CreateModal";
 
 const Header = styled.div`
   height: 3.25rem;
-  border-bottom: 1px solid #dedede;
+  border-bottom: 1px solid ${colors.darkGray};
 `;
 
 const Link = styled.a`
   font-size: 0.9375rem;
   font-weight: 600;
   text-decoration: none;
-  color: #353535;
+  color: ${colors.lightBlack};
   &:hover {
-    color: #000000;
+    color: ${colors.black};
   }
+`;
+
+const CreateWorkspace = styled(Icon)`
+  margin-left: 0.25rem;
+  cursor: pointer;
 `;
 
 export default ({
   children,
   workspaces,
   onWorkspaceChange,
+  onCreateWorkspace,
   selected,
   isLoading
 }) =>
@@ -43,6 +51,7 @@ export default ({
             </option>
           ))}
         </Switch>
+        <CreateWorkspace name="add" onClick={onCreateWorkspace} />
         <div className="ml-auto">
           <Link href="#">Settings</Link>
         </div>

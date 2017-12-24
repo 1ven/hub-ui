@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { withProps } from "recompose";
 import { Icon } from "core/components/kit";
+import { colors } from "core/theme";
 
 const Arrow = withProps({
   lineHeight: 0.5,
@@ -11,11 +12,10 @@ const Arrow = withProps({
 const Wrap = styled.div`
   cursor: pointer;
   height: 1.75rem;
-  background-color: #fcfcfc;
   border-radius: 2px;
   padding-left: 0.5rem;
   padding-right: 0.25rem;
-  border: 1px solid #d4d4d4;
+  border: 1px solid ${colors.darkGray};
 `;
 
 const Select = styled.select`

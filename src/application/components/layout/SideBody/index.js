@@ -1,8 +1,9 @@
 import React from "react";
 import styled from "styled-components";
+import { colors } from "core/theme";
 
 const Sidebar = styled.div`
-  background-color: #ecf0f1;
+  background-color: ${colors.gray};
   padding-top: 1rem;
   padding-bottom: 1rem;
 `;
