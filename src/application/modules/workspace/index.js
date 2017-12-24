@@ -1,1 +1,0 @@
-export { epic } from "./data";

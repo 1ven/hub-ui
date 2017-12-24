@@ -9,7 +9,7 @@ export default ({
 }) => (
   <i
     onClick={onClick}
-    class={`material-icons ${className}`}
+    className={`material-icons ${className}`}
     style={{
       fontSize: `${size}rem`,
       lineHeight

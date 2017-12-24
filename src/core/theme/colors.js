@@ -17,4 +17,6 @@ export const heavyGray = darken(0.125, gray);
 export const blue = "#007eff";
 export const darkBlue = darken(0.0625, blue);
 
+export const red = "#f22613";
+
 // hugeGray, heavyGray, darkGray, gray, mediumGray, lightGray

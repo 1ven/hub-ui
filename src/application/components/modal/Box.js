@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Icon, Button } from "core/components/kit";
+import { Icon } from "core/components/kit";
 import { colors } from "core/theme";
 
 const Wrap = styled.div`
@@ -19,27 +19,11 @@ const Header = styled.div`
   color: ${colors.lightBlack};
 `;
 
-const Body = styled.div`
-  padding: 0 1.5rem 1.5rem;
-`;
-
-const Footer = styled.div`
-  background-color: ${colors.gray};
-  border-top: 1px solid ${colors.darkGray};
-  padding: 1rem 1.5rem;
-  border-bottom-left-radius: 2px;
-  border-bottom-right-radius: 2px;
-`;
-
 const Close = styled(Icon)`
   color: #767878;
   cursor: pointer;
   margin-left: auto;
   font-weight: 600;
-`;
-
-const Cancel = styled(Button)`
-  margin-right: 0.75rem;
 `;
 
 export default ({ title, children, onClose }) => (
@@ -48,14 +32,6 @@ export default ({ title, children, onClose }) => (
       {title}
       <Close onClick={onClose} name="close" size="1.25" />
     </Header>
-    <Body>{children}</Body>
-    <Footer className="flex items-center">
-      <div className="ml-auto">
-        <Cancel theme="bordered" onClick={onClose}>
-          Cancel
-        </Cancel>
-        <Button>Create</Button>
-      </div>
-    </Footer>
+    {children}
   </Wrap>
 );

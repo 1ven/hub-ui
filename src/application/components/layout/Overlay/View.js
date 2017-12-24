@@ -41,7 +41,7 @@ export default ({
       <Header className="w-100 container flex items-center">
         <Switch
           onChange={e =>
-            onWorkspaceChange(workspaces.find(w => w.id == e.target.value))
+            onWorkspaceChange(workspaces.find(w => w.id === +e.target.value))
           }
           value={selected}
         >

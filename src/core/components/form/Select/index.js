@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { withProps } from "recompose";
 import { Icon } from "core/components/kit";
 import { colors } from "core/theme";
+import Error from "../Error";
 
 const Arrow = withProps({
   lineHeight: 0.5,
@@ -14,6 +15,11 @@ const Wrap = styled.div`
   border-radius: 2px;
   padding: 0.5625rem;
   border: 1px solid ${colors.heavyGray};
+  ${({ isNotValid }) =>
+    isNotValid &&
+    `
+    border-color: ${colors.red};
+  `};
 `;
 
 const Select = styled.select`
@@ -26,12 +32,21 @@ const Select = styled.select`
   width: 100%;
 `;
 
-export default props => (
-  <Wrap className="flex flex-row items-center">
-    <Select {...props} />
-    <div className="flex flex-column">
-      <Arrow name="keyboard_arrow_up" />
-      <Arrow name="keyboard_arrow_down" />
+export default ({ field, children, form: { touched, errors } }) => {
+  const error = errors[field.name];
+  return (
+    <div>
+      <Wrap
+        className="flex flex-row items-center"
+        isNotValid={touched && error}
+      >
+        <Select {...field} children={children} />
+        <div className="flex flex-column">
+          <Arrow name="keyboard_arrow_up" />
+          <Arrow name="keyboard_arrow_down" />
+        </div>
+      </Wrap>
+      {error && <Error>{error}</Error>}
     </div>
-  </Wrap>
-);
+  );
+};

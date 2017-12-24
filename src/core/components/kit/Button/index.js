@@ -1,6 +1,16 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
+import Icon from "../Icon";
 import { colors } from "core/theme";
+
+const animation = keyframes`
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+`;
 
 const themes = {
   blue: `
@@ -31,8 +41,23 @@ const Wrap = styled.button`
   ${({ theme }) => themes[theme]};
 `;
 
-export default ({ type, children, className, theme = "blue", onClick }) => (
+const Loop = styled(Icon)`
+  margin-right: 0.125rem;
+  animation: ${animation} 0.6s linear infinite;
+`;
+
+export default ({
+  type,
+  children,
+  className,
+  isLoading = false,
+  theme = "blue",
+  onClick
+}) => (
   <Wrap onClick={onClick} className={className} type={type} theme={theme}>
-    {children}
+    <span className="flex items-center">
+      {isLoading && <Loop name="loop" />}
+      {children}
+    </span>
   </Wrap>
 );
