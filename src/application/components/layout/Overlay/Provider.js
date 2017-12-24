@@ -5,7 +5,7 @@ import { createStructuredSelector } from "reselect";
 import { connect } from "react-redux";
 import { withApi } from "core/data/api";
 import { actions, selectors } from "../../../data/modals";
-import * as workspaceData from "application/modules/workspace/data";
+import * as workspaceData from "../../../data/workspace";
 import { api } from "../../../data/user";
 import View from "./View";
 
