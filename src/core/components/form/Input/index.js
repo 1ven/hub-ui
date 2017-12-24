@@ -22,14 +22,16 @@ const Wrap = styled.input`
 
 export default ({ field, placeholder, form: { touched, errors } }) => {
   const error = errors[field.name];
+  const dirty = touched[field.name];
+
   return (
     <div>
       <Wrap
         {...assoc("value", field.value || "", field)}
         placeholder={placeholder}
-        isNotValid={touched && error}
+        isNotValid={dirty && error}
       />
-      {error && <Error>{error}</Error>}
+      {dirty && error && <Error>{error}</Error>}
     </div>
   );
 };

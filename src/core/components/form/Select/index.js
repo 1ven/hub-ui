@@ -34,19 +34,18 @@ const Select = styled.select`
 
 export default ({ field, children, form: { touched, errors } }) => {
   const error = errors[field.name];
+  const dirty = touched[field.name];
+
   return (
     <div>
-      <Wrap
-        className="flex flex-row items-center"
-        isNotValid={touched && error}
-      >
+      <Wrap className="flex flex-row items-center" isNotValid={dirty && error}>
         <Select {...field} children={children} />
         <div className="flex flex-column">
           <Arrow name="keyboard_arrow_up" />
           <Arrow name="keyboard_arrow_down" />
         </div>
       </Wrap>
-      {error && <Error>{error}</Error>}
+      {dirty && error && <Error>{error}</Error>}
     </div>
   );
 };
