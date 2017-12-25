@@ -16,7 +16,14 @@ export default ({ orgs, validation, isCreating, onClose, onSubmit }) => (
       <Spinner color="light" />
     ) : (
       <modal.Box title="Create workspace" onClose={onClose}>
-        <Formik validationSchema={validation} onSubmit={onSubmit}>
+        <Formik
+          initialValues={{
+            slug: "",
+            assigned_to: ""
+          }}
+          validationSchema={validation}
+          onSubmit={onSubmit}
+        >
           {({ handleSubmit }) => (
             <form onSubmit={handleSubmit}>
               <modalForm.Body>
