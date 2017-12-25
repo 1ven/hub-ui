@@ -11,8 +11,8 @@ import { ConnectedRouter } from "react-router-redux";
 import { createStore } from "core/data/redux";
 import { client } from "core/data/apollo";
 import bootstrap from "core/bootstrap";
-import app from "./gateway";
-import { reducer, epic } from "./application";
+import app from "./routes";
+import { reducer, epic } from "./modules";
 
 bootstrap();
 
