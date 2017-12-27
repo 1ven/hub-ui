@@ -17,6 +17,7 @@ const Wrap = styled.input`
     isNotValid &&
     `
     border-color: ${colors.red};
+    margin-bottom: -2px;
   `};
 `;
 

@@ -4,11 +4,9 @@ import { colors } from "core/theme";
 import { Icon } from "components/generic/kit";
 
 const Wrap = styled.div`
-  border-bottom-left-radius: 2px;
-  border-bottom-right-radius: 2px;
+  border-radius: 2px;
   background-color: ${colors.red};
   color: ${colors.white};
-  margin-top: -1px;
   font-size: 0.875rem;
   padding: 0.25rem 0.5625rem;
   display: flex;

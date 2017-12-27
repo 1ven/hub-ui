@@ -17,9 +17,15 @@ const Title = styled.div`
   margin-bottom: 0.25rem;
 `;
 
-export default ({ title, children }) => (
+const Desc = styled.div`
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+`;
+
+export default ({ title, description, children }) => (
   <Wrap>
     <Title>{title}</Title>
+    {description && <Desc>{description}</Desc>}
     {children}
   </Wrap>
 );

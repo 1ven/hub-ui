@@ -18,6 +18,7 @@ const Wrap = styled.div`
   ${({ isNotValid }) =>
     isNotValid &&
     `
+    margin-bottom: -2px;
     border-color: ${colors.red};
   `};
 `;

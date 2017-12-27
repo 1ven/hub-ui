@@ -5,21 +5,31 @@ import { Input, Label, Row, Select } from "components/generic/form";
 import { Button, Spinner } from "components/generic/kit";
 import * as modal from "components/generic/modal";
 import * as modalForm from "components/generic/modal/form";
+import OrgsList from "./OrgsList";
 
 const Cancel = styled(Button)`
   margin-right: 0.75rem;
 `;
 
-export default ({ orgs, validation, isCreating, onClose, onSubmit }) => (
+export default ({
+  adminOrgs,
+  orgs,
+  isLoading,
+  validation,
+  isCreating,
+  onClose,
+  onSubmit
+}) => (
   <modal.Wrap onClose={onClose}>
-    {orgs.isFetching ? (
+    {isLoading ? (
       <Spinner color="light" />
     ) : (
       <modal.Box title="Create workspace" onClose={onClose}>
         <Formik
           initialValues={{
             slug: "",
-            assigned_to: ""
+            assigned_to: "",
+            repositories: []
           }}
           validationSchema={validation}
           onSubmit={onSubmit}
@@ -38,12 +48,24 @@ export default ({ orgs, validation, isCreating, onClose, onSubmit }) => (
                   <Label title="Organization">
                     <Field name="assigned_to" component={Select}>
                       <option value="">Select workspace organization</option>
-                      {orgs.data.map(org => (
+                      {adminOrgs.map(org => (
                         <option key={org} value={org}>
                           {org}
                         </option>
                       ))}
                     </Field>
+                  </Label>
+                </Row>
+                <Row>
+                  <Label
+                    description="Pick up repositories, which will be inside of your workspace."
+                    title="Repositories"
+                  >
+                    <Field
+                      name="repositories"
+                      component={OrgsList}
+                      orgs={orgs}
+                    />
                   </Label>
                 </Row>
               </modalForm.Body>
