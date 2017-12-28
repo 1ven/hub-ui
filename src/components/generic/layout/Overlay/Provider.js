@@ -7,19 +7,18 @@ import { withApi } from "core/data/api";
 import { showCreateWorkspace } from "modules/interface/actions";
 import { isCreateWorkspaceVisible } from "modules/interface/selectors";
 import { switchWorkspace } from "modules/workspace/actions";
-import { getWorkspaces } from "modules/user/selectors";
-import { fetchUser } from "modules/user/api";
+import { getWorkspaces } from "modules/workspace/api";
 import View from "./View";
 
 export default compose(
   withRouter,
-  withApi(fetchUser, api => ({
-    isLoading: !api.lastUpdated
+  withApi(getWorkspaces, api => ({
+    isLoading: !api.lastUpdated,
+    workspaces: api.data
   })),
   connect(
     createStructuredSelector({
-      isModalVisible: isCreateWorkspaceVisible,
-      workspaces: getWorkspaces
+      isModalVisible: isCreateWorkspaceVisible
     }),
     {
       onWorkspaceChange: switchWorkspace,

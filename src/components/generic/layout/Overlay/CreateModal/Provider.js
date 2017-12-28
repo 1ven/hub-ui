@@ -26,8 +26,8 @@ export default compose(
       isCreating: createWorkspace.selectors.isFetching
     }),
     {
-      onClose: hideCreateWorkspace
-      // onSubmit: values => createWorkspace.request({ body: values })
+      onClose: hideCreateWorkspace,
+      onSubmit: values => createWorkspace.request({ body: values })
     }
   ),
   withProps({
@@ -37,7 +37,7 @@ export default compose(
       repositories: yup
         .array()
         .min(1, "You should pick at least one repository")
-    }),
-    onSubmit: values => console.log(values)
+    })
+    // onSubmit: values => console.log(values)
   })
 )(View);

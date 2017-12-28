@@ -3,6 +3,7 @@ import * as api from "./api";
 
 export default combineReducers({
   api: combineReducers({
-    createWorkspace: api.createWorkspace.reducer
+    createWorkspace: api.createWorkspace.reducer,
+    getWorkspaces: api.getWorkspaces.reducer
   })
 });

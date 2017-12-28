@@ -3,7 +3,6 @@ import { combineEpics } from "redux-observable";
 import { replaceParams } from "core/utils";
 import paths from "routes/paths";
 import * as types from "./types";
-import * as api from "./api";
 import { isAuthenticated } from "./selectors";
 import { authenticationRedirect } from "./actions";
 
@@ -22,16 +21,9 @@ export default combineEpics(
 
       return push(paths.main);
     }),
-  (action$, store) =>
-    action$.ofType(types.AUTHORIZATION_REDIRECT).map(() => {
-      const state = store.getState();
-      const user = api.fetchUser.selectors.data(state);
-
-      if (!user) {
-        return authenticationRedirect();
-      }
-
-      const firstWorkspace = user.workspaces[0];
+  action$ =>
+    action$.ofType(types.AUTHORIZATION_REDIRECT).map(({ payload }) => {
+      const firstWorkspace = payload.workspaces[0];
 
       if (!firstWorkspace) {
         return push(paths.noWorkspaces);
@@ -39,6 +31,7 @@ export default combineEpics(
 
       return push(
         replaceParams(paths.workspace, {
+          // TODO: not expose workspace internals
           org: firstWorkspace.assigned_to,
           slug: firstWorkspace.slug
         })

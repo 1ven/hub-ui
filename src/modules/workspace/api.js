@@ -17,3 +17,18 @@ export const createWorkspace = createApi({
     "content-type": "application/json"
   })
 });
+
+export const getWorkspaces = createApi({
+  name: types.GET_WORKSPACES,
+  url: process.env.REACT_APP_API + "/workspaces",
+  method: "GET",
+  selector: selectors.getWorkspacesApi,
+  map: {
+    request: JSON.stringify,
+    response: JSON.parse
+  },
+  headers: state => ({
+    authorization: `Bearer ${userSelectors.getToken(state)}`,
+    "content-type": "application/json"
+  })
+});

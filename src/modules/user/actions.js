@@ -13,6 +13,7 @@ export const authenticationRedirect = () => ({
   type: types.AUTHENTICATION_REDIRECT
 });
 
-export const authorizationRedirect = () => ({
-  type: types.AUTHORIZATION_REDIRECT
+export const authorizationRedirect = ({ user, workspaces }) => ({
+  type: types.AUTHORIZATION_REDIRECT,
+  payload: { user, workspaces }
 });
