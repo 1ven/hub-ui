@@ -18,11 +18,11 @@ export const createWorkspace = createApi({
   })
 });
 
-export const getWorkspaces = createApi({
-  name: types.GET_WORKSPACES,
+export const fetchWorkspaces = createApi({
+  name: types.FETCH_WORKSPACES,
   url: process.env.REACT_APP_API + "/workspaces",
   method: "GET",
-  selector: selectors.getWorkspacesApi,
+  selector: selectors.fetchWorkspacesApi,
   map: {
     request: JSON.stringify,
     response: JSON.parse

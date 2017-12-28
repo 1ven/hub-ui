@@ -7,7 +7,7 @@ export const getCreateWorkspaceApi = compose(
   scopeSelector
 );
 
-export const getWorkspacesApi = compose(
-  path(["api", "getWorkspaces"]),
+export const fetchWorkspacesApi = compose(
+  path(["api", "fetchWorkspaces"]),
   scopeSelector
 );

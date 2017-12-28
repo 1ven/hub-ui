@@ -34,9 +34,7 @@ export default compose(
     validation: yup.object().shape({
       slug: yup.string().required("Name is required"),
       assigned_to: yup.string().required("Organization is required"),
-      repositories: yup
-        .array()
-        .min(1, "You should pick at least one repository")
+      repos: yup.array().min(1, "You should pick at least one repository")
     })
     // onSubmit: values => console.log(values)
   })

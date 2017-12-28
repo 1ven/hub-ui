@@ -7,12 +7,12 @@ import { withApi } from "core/data/api";
 import { showCreateWorkspace } from "modules/interface/actions";
 import { isCreateWorkspaceVisible } from "modules/interface/selectors";
 import { switchWorkspace } from "modules/workspace/actions";
-import { getWorkspaces } from "modules/workspace/api";
+import { fetchWorkspaces } from "modules/workspace/api";
 import View from "./View";
 
 export default compose(
   withRouter,
-  withApi(getWorkspaces, api => ({
+  withApi(fetchWorkspaces, api => ({
     isLoading: !api.lastUpdated,
     workspaces: api.data
   })),

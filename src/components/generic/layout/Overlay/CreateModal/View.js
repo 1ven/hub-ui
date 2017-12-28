@@ -29,7 +29,7 @@ export default ({
           initialValues={{
             slug: "",
             assigned_to: "",
-            repositories: []
+            repos: []
           }}
           validationSchema={validation}
           onSubmit={onSubmit}
@@ -61,11 +61,7 @@ export default ({
                     description="Pick up repositories, which will be inside of your workspace. You can choose only repos, where you are having admin rights"
                     title="Repositories"
                   >
-                    <Field
-                      name="repositories"
-                      component={OrgsList}
-                      orgs={orgs}
-                    />
+                    <Field name="repos" component={OrgsList} orgs={orgs} />
                   </Label>
                 </Row>
               </modalForm.Body>

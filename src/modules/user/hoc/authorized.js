@@ -3,7 +3,7 @@ import { withProps, compose, lifecycle } from "recompose";
 import { T } from "ramda";
 import { hoc } from "core/data/redux";
 import { withApi } from "core/data/api";
-import { getWorkspaces } from "modules/workspace/api";
+import { fetchWorkspaces } from "modules/workspace/api";
 import { fetchUser } from "../api";
 import { authorizationRedirect } from "../actions";
 import authenticated from "./authenticated";
@@ -16,7 +16,7 @@ export default (test = T) => Component =>
     withApi(fetchUser, api => ({
       user: api.data
     })),
-    withApi(getWorkspaces, api => ({
+    withApi(fetchWorkspaces, api => ({
       workspaces: api.data
     })),
     withProps(({ workspaces, user }) => ({
