@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { colors } from "core/theme";
-import { Icon } from "components/generic/kit";
+import { Icon } from "core/components/kit";
 
 const Wrap = styled.div`
   border-radius: 2px;

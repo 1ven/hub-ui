@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { compose, withState } from "recompose";
-import { Error } from "components/generic/form";
+import { Error } from "core/components/form";
 import Checkbox from "./Checkbox";
 import Repos from "./Repos";
 

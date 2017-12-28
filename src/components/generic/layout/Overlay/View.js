@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { colors } from "core/theme";
-import { Icon } from "components/generic/kit";
+import { Icon } from "core/components/kit";
 import CreateModal from "./CreateModal";
 
 const Header = styled.div`
@@ -47,19 +47,21 @@ export default ({
   ) : (
     <div className="h-100 flex flex-column">
       <Header className="w-100 container flex items-center">
-        <Switch
-          onChange={e =>
-            onWorkspaceChange(workspaces.find(w => w.id === +e.target.value))
-          }
-          value={selected}
-        >
-          <option disabled>Select workspace</option>
-          {workspaces.map(w => (
-            <option key={w.id} value={w.id}>
-              {w.assigned_to + "/" + w.slug}
-            </option>
-          ))}
-        </Switch>
+        {workspaces.length > 0 && (
+          <Switch
+            onChange={e =>
+              onWorkspaceChange(workspaces.find(w => w.id === +e.target.value))
+            }
+            value={selected}
+          >
+            <option disabled>Select workspace</option>
+            {workspaces.map(w => (
+              <option key={w.id} value={w.id}>
+                {w.assigned_to + "/" + w.slug}
+              </option>
+            ))}
+          </Switch>
+        )}
         <CreateWorkspace name="add" onClick={onCreateWorkspace} />
         <div className="ml-auto">
           <Link href="#">Settings</Link>

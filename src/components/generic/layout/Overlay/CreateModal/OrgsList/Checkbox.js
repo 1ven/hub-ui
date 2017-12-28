@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Icon } from "components/generic/kit";
+import { Icon } from "core/components/kit";
 import { colors } from "core/theme";
 
 const Item = styled.div`

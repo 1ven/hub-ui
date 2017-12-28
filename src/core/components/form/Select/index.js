@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { withProps } from "recompose";
 import { colors } from "core/theme";
-import { Icon } from "components/generic/kit";
+import { Icon } from "core/components/kit";
 import Error from "../Error";
 
 const Arrow = withProps({

@@ -1,5 +1,5 @@
 import React from "react";
-import { Container } from "components/generic/grid";
+import { Container } from "core/components/grid";
 import { Overlay } from "components/generic/layout";
 
 export default () => (

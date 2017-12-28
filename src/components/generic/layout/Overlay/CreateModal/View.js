@@ -1,10 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 import { Field, Formik } from "formik";
-import { Input, Label, Row, Select } from "components/generic/form";
-import { Button, Spinner } from "components/generic/kit";
-import * as modal from "components/generic/modal";
-import * as modalForm from "components/generic/modal/form";
+import { Input, Label, Row, Select } from "core/components/form";
+import { Button, Spinner } from "core/components/kit";
+import * as modal from "core/components/modal";
+import * as modalForm from "core/components/modal/form";
 import OrgsList from "./OrgsList";
 
 const Cancel = styled(Button)`

@@ -8,3 +8,8 @@ export const getFetchUserApi = compose(
   path(["api", "fetchUser"]),
   scopeSelector
 );
+
+export const getWorkspaces = compose(
+  path(["data", "workspaces"]),
+  getFetchUserApi
+);
