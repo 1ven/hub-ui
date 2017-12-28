@@ -58,7 +58,7 @@ export default ({
                 </Row>
                 <Row>
                   <Label
-                    description="Pick up repositories, which will be inside of your workspace."
+                    description="Pick up repositories, which will be inside of your workspace. You can choose only repos, where you are having admin rights"
                     title="Repositories"
                   >
                     <Field

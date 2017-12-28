@@ -18,11 +18,15 @@ const Body = styled.div`
   }
 `;
 
-export default ({ isLoading, repos, selected, onCheck }) => (
+const More = styled.div`
+  text-decoration: underline;
+  cursor: pointer;
+`;
+
+export default ({ isLoading, repos, selected, hasMore, loadMore, onCheck }) => (
   <Body>
-    {isLoading
-      ? "Loading..."
-      : !repos.length
+    {repos &&
+      (!repos.length
         ? "No repos"
         : repos.map((repo, i) => (
             <Checkbox
@@ -31,6 +35,8 @@ export default ({ isLoading, repos, selected, onCheck }) => (
               title={repo.title}
               isActive={selected.includes(repo.id)}
             />
-          ))}
+          )))}
+    <div>{isLoading && "Loading..."}</div>
+    {hasMore && !isLoading && <More onClick={loadMore}>Load more</More>}
   </Body>
 );

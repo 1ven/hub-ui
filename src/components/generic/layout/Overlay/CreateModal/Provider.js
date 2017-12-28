@@ -1,5 +1,5 @@
 import yup from "yup";
-import { map } from "ramda";
+import { prop } from "ramda";
 import { compose, withProps } from "recompose";
 import { graphql } from "react-apollo";
 import { connect } from "react-redux";
@@ -7,7 +7,6 @@ import { createStructuredSelector } from "reselect";
 import { hideCreateWorkspace } from "modules/interface/actions";
 import { createWorkspace } from "modules/workspace/api";
 import { ORGS_QUERY } from "modules/github/graphql";
-import * as utils from "modules/github/utils";
 import View from "./View";
 
 export default compose(
@@ -16,13 +15,10 @@ export default compose(
       isLoading: loading,
       adminOrgs:
         viewer &&
-        compose(
-          map(utils.getOrgLogin),
-          utils.onlyAdminOrgs,
-          utils.getViewerOrgs
-        )(viewer),
-      orgs:
-        viewer && compose(map(utils.getOrgLogin), utils.getViewerOrgs)(viewer)
+        viewer.organizations.nodes
+          .filter(prop("viewerCanAdminister"))
+          .map(prop("login")),
+      orgs: viewer && viewer.organizations.nodes.map(prop("login"))
     })
   }),
   connect(
