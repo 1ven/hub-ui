@@ -7,6 +7,7 @@ import CreateModal from "./CreateModal";
 const Header = styled.div`
   height: 3.25rem;
   border-bottom: 1px solid ${colors.darkGray};
+  flex-shrink: 0;
 `;
 
 const Switch = styled.select`

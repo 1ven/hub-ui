@@ -19,6 +19,8 @@ bootstrap();
 const history = createBrowserHistory();
 const { store, persistor } = createStore(reducer, epic, history);
 
+// TODO: consider moving out hocs to the root, near components and modules as they are conceptually don't related to components or modules specifically
+
 const App = () => (
   <ApolloProvider client={client}>
     <Provider store={store}>
