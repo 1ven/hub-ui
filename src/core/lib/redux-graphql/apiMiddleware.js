@@ -8,36 +8,61 @@ export default (config = {}) => store => next => async action => {
     return next(action);
   }
 
-  const { request, payload, types } = action;
-
   next({
-    type: types.request,
-    payload
+    type: action.types.request,
+    payload: action.payload
   });
 
-  try {
-    const { data, meta } = await fetchApi(
-      typeof request === "function" ? request(payload) : request,
-      mergeDeepLeft(config, action.config)
-    );
+  if (action.payload instanceof Array) {
+    try {
+      const data = await Promise.all(
+        action.payload.map(payload => sendRequest(payload, action, config))
+      );
 
-    next({
-      type: types.success,
-      payload: {
-        request: payload,
-        body: data,
-        meta
-      }
-    });
-  } catch ({ message, data, meta }) {
-    next({
-      type: types.failure,
-      payload: {
-        request: payload,
-        message,
-        data,
-        meta
-      }
-    });
+      fetchingSuccess(data, action, next);
+    } catch (err) {
+      fetchingFailure(err, action, next);
+    }
+
+    return;
+  }
+
+  try {
+    const data = await sendRequest(action.payload, action, config);
+
+    fetchingSuccess(data, action, next);
+  } catch (err) {
+    fetchingFailure(err, action, next);
   }
 };
+
+const sendRequest = (payload, { request, config }, genericConfig) =>
+  fetchApi(
+    typeof request === "function" ? request(payload) : request,
+    mergeDeepLeft(genericConfig, config)
+  );
+
+const fetchingSuccess = (data, { types, payload }, dispatch) =>
+  dispatch({
+    type: types.success,
+    payload: {
+      request: payload,
+      body: data,
+      meta: {
+        receivedAt: Date.now()
+      }
+    }
+  });
+
+const fetchingFailure = ({ message, data }, { types, payload }, dispatch) =>
+  dispatch({
+    type: types.failure,
+    payload: {
+      request: payload,
+      message,
+      data,
+      meta: {
+        receivedAt: Date.now()
+      }
+    }
+  });

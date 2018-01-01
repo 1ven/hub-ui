@@ -2,6 +2,7 @@
 export default (req, { map, endpoint, headers }) =>
   new Promise(async (resolve, reject) => {
     try {
+      // graphql specific. move to separate package, and use in middleware
       const response = await fetch(endpoint, {
         headers,
         body: map.request({
@@ -10,6 +11,7 @@ export default (req, { map, endpoint, headers }) =>
         }),
         method: "POST"
       });
+      //
       const meta = {
         status: response.status,
         receivedAt: Date.now()
@@ -17,13 +19,10 @@ export default (req, { map, endpoint, headers }) =>
       const body = await response.text();
 
       if (response.status >= 400) {
-        return reject({ data: body, meta });
+        return reject({ data: body });
       }
 
-      resolve({
-        data: map.response(body, response).data,
-        meta
-      });
+      resolve(map.response(body, response).data);
     } catch (err) {
       reject({ message: err.message });
     }
