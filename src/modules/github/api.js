@@ -6,7 +6,7 @@ export const fetchIssues = createApi({
   name: types.FETCH_ISSUES,
   request: ({ owner, name, itemsPerPage, cursor }, state) => ({
     // batching
-    queries: ({ repos }) => [``, ``],
+    // queries: ({ repos }) => [``, ``],
     query: `
       query IssuesByRepo(
         $owner: String!

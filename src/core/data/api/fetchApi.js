@@ -1,12 +1,19 @@
 import React from "react";
-import { omit } from "ramda";
+import { omit, merge } from "ramda";
 import { withProps, compose, lifecycle } from "recompose";
 import { connect } from "react-redux";
 
-export default (api, config = { shouldFetch: true }) => Component =>
+const defaults = {
+  shouldFetch: true
+};
+
+export default (api, config = {}) => Component =>
   compose(
     withProps(props => ({
-      _config: typeof config === "function" ? config(props) : config
+      _config: merge(
+        defaults,
+        typeof config === "function" ? config(props) : config
+      )
     })),
     connect(void 0, (dispatch, { _config, ...props }) => ({
       _fetch() {
