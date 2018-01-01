@@ -6,7 +6,7 @@ import { withApi } from "core/data/api";
 import { fetchApi } from "core/data/api";
 import { fetchWorkspaces } from "modules/workspace/api";
 import { fetchIssues } from "modules/github/api";
-import * as selectors from "modules/github/selectors/api/fetchIssues";
+import * as issuesSelectors from "modules/github/selectors/api/fetchIssues";
 import { getCurrentWorkspaceRepos } from "modules/workspace/selectors";
 import View from "./View";
 
@@ -21,8 +21,10 @@ export default compose(
   connect(
     createStructuredSelector({
       repos: getCurrentWorkspaceRepos,
-      issues: selectors.getLastIssues
-      // cursorsByRepo:
+      issues: issuesSelectors.getVisibleIssues,
+      isLoading: issuesSelectors.isLoading,
+      nextPageCursors: issuesSelectors.getNextPageCursors,
+      hasNextPage: issuesSelectors.hasNextPage
     })
   ),
   fetchApi(fetchIssues, ({ repos, itemsPerPage }) => ({

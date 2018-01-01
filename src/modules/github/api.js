@@ -15,6 +15,7 @@ export const fetchIssues = createApi({
         $cursor: String
       ) {
         repository(owner: $owner, name: $name) {
+          nameWithOwner
           issues(
             first: $itemsPerPage
             after: $cursor
@@ -29,7 +30,7 @@ export const fetchIssues = createApi({
               title
               createdAt
               repository {
-                nameWithOwner
+                nameWithOwner,
               }
             }
           }

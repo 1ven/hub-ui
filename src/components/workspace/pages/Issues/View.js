@@ -24,7 +24,7 @@ const More = styled.a`
   vertical-align: top;
 `;
 
-export default ({ issues }) => (
+export default ({ issues, hasNextPage, isLoading }) => (
   <Overlay>
     <SideBody>
       <Head>Backlog</Head>
@@ -36,12 +36,14 @@ export default ({ issues }) => (
               <div className="ml-auto">{repository.nameWithOwner}</div>
             </Issue>
           ))}
+        {isLoading && <div>Loading...</div>}
       </div>
-      {issues && (
-        <div className="col">
-          <More>Load more</More>
-        </div>
-      )}
+      {issues &&
+        hasNextPage && (
+          <div className="col">
+            <More>Load more</More>
+          </div>
+        )}
     </SideBody>
   </Overlay>
 );
