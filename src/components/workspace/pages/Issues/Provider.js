@@ -2,10 +2,11 @@ import { compose, withProps } from "recompose";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { createStructuredSelector } from "reselect";
-import { withApi } from "core/data/api";
-import { fetchApi } from "core/data/api";
+import { withApi, fetchApi } from "core/data/api";
+import { withActions } from "core/data/redux/hoc";
 import { fetchWorkspaces } from "modules/workspace/api";
 import { fetchIssues } from "modules/github/api";
+import { setNextPage } from "modules/interface/issues/actions";
 import * as issuesSelectors from "modules/github/selectors/api/fetchIssues";
 import { getCurrentWorkspaceRepos } from "modules/workspace/selectors";
 import View from "./View";
@@ -24,7 +25,8 @@ export default compose(
       issues: issuesSelectors.getVisibleIssues,
       isLoading: issuesSelectors.isLoading,
       nextPageCursors: issuesSelectors.getNextPageCursors,
-      hasNextPage: issuesSelectors.hasNextPage
+      hasNextPage: issuesSelectors.hasNextPage,
+      hasUnfetchedIssues: issuesSelectors.hasUnfetchedIssues
     })
   ),
   fetchApi(fetchIssues, ({ repos, itemsPerPage }) => ({
@@ -33,5 +35,18 @@ export default compose(
       name: repo.name,
       itemsPerPage
     }))
+  })),
+  withActions(({ hasUnfetchedIssues, nextPageCursors, itemsPerPage }) => ({
+    loadMore: () =>
+      hasUnfetchedIssues
+        ? fetchIssues.request(
+            nextPageCursors.map(({ name, owner, cursor }) => ({
+              name,
+              owner,
+              cursor,
+              itemsPerPage
+            }))
+          )
+        : setNextPage()
   }))
 )(View);

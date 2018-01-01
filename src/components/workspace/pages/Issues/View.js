@@ -24,7 +24,7 @@ const More = styled.a`
   vertical-align: top;
 `;
 
-export default ({ issues, hasNextPage, isLoading }) => (
+export default ({ issues, loadMore, hasNextPage, isLoading }) => (
   <Overlay>
     <SideBody>
       <Head>Backlog</Head>
@@ -41,7 +41,7 @@ export default ({ issues, hasNextPage, isLoading }) => (
       {issues &&
         hasNextPage && (
           <div className="col">
-            <More>Load more</More>
+            <More onClick={loadMore}>Load more</More>
           </div>
         )}
     </SideBody>
