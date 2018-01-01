@@ -2,36 +2,38 @@ import { mergeDeepLeft } from "ramda";
 import { fetchApi } from "./utils";
 import { symbol } from "./createApi";
 
-// TODO: should not be graphql specific
+// TODO: should keep fetching method(rest, graphql) settings code just here?
 export default (config = {}) => store => next => async action => {
   if (!action[symbol]) {
     return next(action);
   }
 
+  const { request, payload, types } = action;
+
   next({
-    type: action.types.request,
-    payload: action.payload
+    type: types.request,
+    payload
   });
 
   try {
     const { data, meta } = await fetchApi(
-      action.request,
+      typeof request === "function" ? request(payload) : request,
       mergeDeepLeft(config, action.config)
     );
 
     next({
-      type: action.types.success,
+      type: types.success,
       payload: {
-        request: action.payload,
+        request: payload,
         body: data,
         meta
       }
     });
   } catch ({ message, data, meta }) {
     next({
-      type: action.types.failure,
+      type: types.failure,
       payload: {
-        request: action.payload,
+        request: payload,
         message,
         data,
         meta
