@@ -10,7 +10,6 @@ import * as selectors from "modules/github/selectors/api/fetchOrgs";
 import View from "./View";
 
 export default compose(
-  fetchApi(fetchOrgs),
   connect(
     createStructuredSelector({
       isCreating: createWorkspace.selectors.isFetching,
@@ -23,6 +22,9 @@ export default compose(
       onSubmit: values => createWorkspace.request({ body: values })
     }
   ),
+  fetchApi(fetchOrgs, ({ orgs }) => ({
+    shouldFetch: !orgs
+  })),
   withProps({
     validation: yup.object().shape({
       slug: yup.string().required("Name is required"),
