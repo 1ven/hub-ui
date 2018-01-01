@@ -12,10 +12,6 @@ export default (req, { map, endpoint, headers }) =>
         method: "POST"
       });
       //
-      const meta = {
-        status: response.status,
-        receivedAt: Date.now()
-      };
       const body = await response.text();
 
       if (response.status >= 400) {
