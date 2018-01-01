@@ -48,9 +48,9 @@ export default ({
                   <Label title="Organization">
                     <Field name="assigned_to" component={Select}>
                       <option value="">Select workspace organization</option>
-                      {adminOrgs.map(org => (
-                        <option key={org} value={org}>
-                          {org}
+                      {adminOrgs.map(({ login }) => (
+                        <option key={login} value={login}>
+                          {login}
                         </option>
                       ))}
                     </Field>

@@ -1,29 +1,22 @@
 import yup from "yup";
-import { prop } from "ramda";
 import { compose, withProps } from "recompose";
-import { graphql } from "react-apollo";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
+import { fetchApi } from "core/data/api";
 import { hideCreateWorkspace } from "modules/interface/overlay/actions";
 import { createWorkspace } from "modules/workspace/api";
-import { ORGS_QUERY } from "modules/github/graphql";
+import { fetchOrgs } from "modules/github/api";
+import * as selectors from "modules/github/selectors/api/fetchOrgs";
 import View from "./View";
 
 export default compose(
-  graphql(ORGS_QUERY, {
-    props: ({ data: { loading, viewer } }) => ({
-      isLoading: loading,
-      adminOrgs:
-        viewer &&
-        viewer.organizations.nodes
-          .filter(prop("viewerCanAdminister"))
-          .map(prop("login")),
-      orgs: viewer && viewer.organizations.nodes.map(prop("login"))
-    })
-  }),
+  fetchApi(fetchOrgs),
   connect(
     createStructuredSelector({
-      isCreating: createWorkspace.selectors.isFetching
+      isCreating: createWorkspace.selectors.isFetching,
+      isLoading: selectors.getLoadingStatus,
+      adminOrgs: selectors.getAdminOrgs,
+      orgs: selectors.getOrgs
     }),
     {
       onClose: hideCreateWorkspace,

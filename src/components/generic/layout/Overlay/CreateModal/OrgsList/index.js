@@ -21,16 +21,16 @@ export default compose(withState("openedIndex", "setOpenedIndex", void 0))(
     setOpenedIndex
   }) => (
     <div>
-      {orgs.map((org, i) => (
+      {orgs.map(({ login }, i) => (
         <Item key={i}>
           <Checkbox
             onClick={() => setOpenedIndex(openedIndex !== i ? i : void 0)}
-            isPartial={hasSelected(selected, org)}
-            title={org}
+            isPartial={hasSelected(selected, login)}
+            title={login}
           />
           {openedIndex === i && (
             <Repos
-              org={org}
+              org={login}
               selected={selected}
               onCheck={id =>
                 setValues({

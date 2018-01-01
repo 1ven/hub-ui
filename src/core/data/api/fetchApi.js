@@ -3,7 +3,7 @@ import { omit } from "ramda";
 import { withProps, compose, lifecycle } from "recompose";
 import { connect } from "react-redux";
 
-export default (api, config) => Component =>
+export default (api, config = { shouldFetch: true }) => Component =>
   compose(
     withProps(props => ({
       _config: typeof config === "function" ? config(props) : config
