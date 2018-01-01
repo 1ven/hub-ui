@@ -36,12 +36,17 @@ export default (
       !props._api.data || props._api.isFetching ? (
         "Loading..."
       ) : (
-        <Component {...apiToProps && withApiProps(props, apiToProps)} />
+        <Component
+          {...apiToProps && withApiProps(props, apiToProps)}
+          {...omit(internalKeys, props)}
+        />
       )
   );
 
+const internalKeys = ["_api", "_fetch"];
+
 const withApiProps = (props, apiToProps) => ({
-  ...omit(["_api", "_fetch"], props),
+  ...omit(internalKeys, props),
   ...apiToProps(props._api, props)
 });
 

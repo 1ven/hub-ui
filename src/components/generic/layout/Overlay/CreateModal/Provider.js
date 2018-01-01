@@ -4,7 +4,7 @@ import { compose, withProps } from "recompose";
 import { graphql } from "react-apollo";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
-import { hideCreateWorkspace } from "modules/interface/actions";
+import { hideCreateWorkspace } from "modules/interface/overlay/actions";
 import { createWorkspace } from "modules/workspace/api";
 import { ORGS_QUERY } from "modules/github/graphql";
 import View from "./View";
@@ -36,6 +36,5 @@ export default compose(
       assigned_to: yup.string().required("Organization is required"),
       repos: yup.array().min(1, "You should pick at least one repository")
     })
-    // onSubmit: values => console.log(values)
   })
 )(View);

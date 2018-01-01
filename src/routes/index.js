@@ -30,9 +30,9 @@ export default renderRoutes([
         component: workspace.Main
       },
       {
-        path: paths.backlog,
+        path: paths.issues,
         exact: true,
-        component: workspace.Backlog
+        component: workspace.Issues
       },
       {
         path: paths.noWorkspaces,

@@ -6,7 +6,7 @@ import { colors } from "core/theme";
 export default styled(NavLink)`
   color: ${colors.black};
   margin: 0 -0.5rem 0.25rem;
-  padding: 0.375rem 0.5rem;
+  padding: 0.4375rem 0.5rem;
   text-decoration: none;
   display: block;
   border-radius: 3px;

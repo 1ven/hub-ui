@@ -4,8 +4,8 @@ import { find, prop } from "ramda";
 import { createStructuredSelector } from "reselect";
 import { connect } from "react-redux";
 import { withApi } from "core/data/api";
-import { showCreateWorkspace } from "modules/interface/actions";
-import { isCreateWorkspaceVisible } from "modules/interface/selectors";
+import { showCreateWorkspace } from "modules/interface/overlay/actions";
+import { isCreateWorkspaceVisible } from "modules/interface/overlay/selectors";
 import { switchWorkspace } from "modules/workspace/actions";
 import { fetchWorkspaces } from "modules/workspace/api";
 import View from "./View";
@@ -28,6 +28,7 @@ export default compose(
   withProps(({ match, workspaces }) => ({
     selected: compose(
       prop("id"),
+      // TODO: do not work with data in providers
       find(
         ({ assigned_to, slug }) =>
           assigned_to === match.params.org && slug === match.params.slug

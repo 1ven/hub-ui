@@ -3,6 +3,6 @@ export default {
   login: "/auth/login",
   setToken: "/auth/set-token/:token",
   workspace: "/w/:org/:slug",
-  backlog: "/w/:org/:slug/backlog",
+  issues: "/w/:org/:slug/issues",
   noWorkspaces: "/no-workspaces"
 };

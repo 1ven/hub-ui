@@ -1,46 +1,28 @@
 import { compose } from "recompose";
-import { prop } from "ramda";
-import { graphql } from "react-apollo";
-import { REPOS_BY_ORG_QUERY } from "modules/github/graphql";
+import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
+import { withActions } from "core/data/redux/hoc";
+import { fetchApi } from "core/data/api";
+import { fetchReposByOrg } from "modules/github/api";
+import * as selectors from "modules/github/selectors/api/fetchReposByOrg";
 import View from "./View";
 
 export default compose(
-  graphql(REPOS_BY_ORG_QUERY, {
-    options: ({ org }) => ({
-      variables: { org },
-      notifyOnNetworkStatusChange: true
-    }),
-    props: ({ data: { loading, organization: org, fetchMore, ...rest } }) => ({
-      isLoading: loading,
-      repos:
-        org &&
-        org.repositories.nodes
-          .filter(prop("viewerCanAdminister"))
-          .map(({ name, nameWithOwner }) => ({
-            title: name,
-            id: nameWithOwner
-          })),
-      hasMore: org && org.repositories.pageInfo.hasNextPage,
-      loadMore: () =>
-        fetchMore({
-          variables: {
-            cursor: org.repositories.pageInfo.endCursor
-          },
-          updateQuery: (prev, { fetchMoreResult }) =>
-            !fetchMoreResult
-              ? prev
-              : {
-                  organization: {
-                    repositories: {
-                      ...fetchMoreResult.organization.repositories,
-                      nodes: [
-                        ...prev.organization.repositories.nodes,
-                        ...fetchMoreResult.organization.repositories.nodes
-                      ]
-                    }
-                  }
-                }
-        })
+  connect(
+    createStructuredSelector({
+      hasMore: selectors.hasMoreRepos,
+      repos: selectors.getAdminReposByOrg,
+      cursor: selectors.getReposCursor,
+      isLoading: selectors.reposLoadingStatus
     })
-  })
+  ),
+  fetchApi(fetchReposByOrg, ({ org, repos }) => ({
+    payload: {
+      org
+    },
+    shouldFetch: !repos
+  })),
+  withActions(({ org, cursor }) => ({
+    loadMore: () => fetchReposByOrg.request({ org, cursor })
+  }))
 )(View);

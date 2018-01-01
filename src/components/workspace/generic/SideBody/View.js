@@ -1,12 +1,12 @@
 import React from "react";
 import { SideBody, SideLink } from "components/generic/layout";
 
-export default ({ path, children }) => (
+export default ({ links, children }) => (
   <SideBody
     sidebar={
       <div>
-        <SideLink to={path + "/backlog"}>Backlog</SideLink>
-        <SideLink to={path + "/settings"}>Settings</SideLink>
+        <SideLink to={links.issues}>Issues</SideLink>
+        <SideLink to={"/settings"}>Settings</SideLink>
       </div>
     }
   >

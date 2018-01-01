@@ -30,10 +30,10 @@ export default ({ isLoading, repos, selected, hasMore, loadMore, onCheck }) => (
         ? "No repos"
         : repos.map((repo, i) => (
             <Checkbox
-              onClick={() => onCheck(repo.id)}
+              onClick={() => onCheck(repo.nameWithOwner)}
               key={i}
-              title={repo.title}
-              isActive={selected.includes(repo.id)}
+              title={repo.name}
+              isActive={selected.includes(repo.nameWithOwner)}
             />
           )))}
     <div>{isLoading && "Loading..."}</div>

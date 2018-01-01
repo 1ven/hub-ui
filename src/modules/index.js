@@ -1,6 +1,9 @@
 import { combineReducers } from "redux";
 import { combineEpics } from "redux-observable";
-import interfaceReducer from "./interface/reducer";
+
+import { reducer as interfaceReducer } from "./interface";
+
+import githubReducer from "./github/reducer";
 import userReducer from "./user/reducer";
 import workspaceReducer from "./workspace/reducer";
 
@@ -10,7 +13,8 @@ import workspaceEpic from "./workspace/epic";
 export const reducer = combineReducers({
   interface: interfaceReducer,
   user: userReducer,
-  workspace: workspaceReducer
+  workspace: workspaceReducer,
+  github: githubReducer
 });
 
 export const epic = combineEpics(userEpic, workspaceEpic);

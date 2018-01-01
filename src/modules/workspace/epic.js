@@ -3,7 +3,7 @@ import { combineEpics } from "redux-observable";
 import { push } from "react-router-redux";
 import { replaceParams } from "core/utils";
 import paths from "routes/paths";
-import * as modalsActions from "../interface/actions";
+import * as modalsActions from "modules/interface/overlay/actions";
 import * as actions from "./actions";
 import * as types from "./types";
 import * as api from "./api";

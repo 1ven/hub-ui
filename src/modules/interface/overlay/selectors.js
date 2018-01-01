@@ -1,8 +1,8 @@
 import { compose, prop } from "ramda";
 
-export const scopeSelector = state => state.modules.interface;
+export const scopeSelector = state => state.modules.interface.overlay;
 
 export const isCreateWorkspaceVisible = compose(
-  prop("createWorkspace"),
+  prop("createWorkspaceModal"),
   scopeSelector
 );
