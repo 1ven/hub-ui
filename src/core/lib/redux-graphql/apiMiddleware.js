@@ -3,7 +3,7 @@ import { fetchApi } from "./utils";
 import { symbol } from "./createApi";
 
 // TODO: should keep fetching method(rest, graphql) settings code just here?
-export default (config = {}) => store => next => async action => {
+export default (genericConfig = {}) => store => next => async action => {
   if (!action[symbol]) {
     return next(action);
   }
@@ -13,10 +13,16 @@ export default (config = {}) => store => next => async action => {
     payload: action.payload
   });
 
-  if (action.payload instanceof Array) {
+  const config = mergeDeepLeft(genericConfig, action.config);
+  const request =
+    typeof action.request === "function"
+      ? action.request(action.payload)
+      : action.request;
+
+  if (request instanceof Array) {
     try {
       const data = await Promise.all(
-        action.payload.map(payload => sendRequest(payload, action, config))
+        request.map(item => fetchApi(item, config))
       );
 
       fetchingSuccess(data, action, next);
@@ -28,19 +34,13 @@ export default (config = {}) => store => next => async action => {
   }
 
   try {
-    const data = await sendRequest(action.payload, action, config);
+    const data = await fetchApi(request, config);
 
     fetchingSuccess(data, action, next);
   } catch (err) {
     fetchingFailure(err, action, next);
   }
 };
-
-const sendRequest = (payload, { request, config }, genericConfig) =>
-  fetchApi(
-    typeof request === "function" ? request(payload) : request,
-    mergeDeepLeft(genericConfig, config)
-  );
 
 const fetchingSuccess = (data, { types, payload }, dispatch) =>
   dispatch({

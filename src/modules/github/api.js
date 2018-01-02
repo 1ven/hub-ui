@@ -1,13 +1,35 @@
-import { over, lensPath } from "ramda";
+import { over, lensPath, compose, equals, path } from "ramda";
 import { createApi } from "core/lib/redux-graphql";
 import * as types from "./types";
 
 export const fetchIssues = createApi({
   name: types.FETCH_ISSUES,
-  request: ({ owner, name, itemsPerPage, cursor }, state) => ({
-    // batching
-    // queries: ({ repos }) => [``, ``],
-    query: `
+  merge: (payload, current, next) =>
+    !current
+      ? next
+      : current.map(repo => {
+          const updatedRepo = next.find(
+            compose(
+              equals(repo.repository.nameWithOwner),
+              path(["repository", "nameWithOwner"])
+            )
+          );
+
+          if (!updatedRepo) {
+            return repo;
+          }
+
+          return over(
+            lensPath(["repository", "issues", "nodes"]),
+            nodes => [...repo.repository.issues.nodes, ...nodes],
+            updatedRepo
+          );
+        }),
+  request: (payload, state) =>
+    payload.map(({ owner, name, itemsPerPage, cursor }) => ({
+      // batching
+      // queries: ({ repos }) => [``, ``],
+      query: `
       query IssuesByRepo(
         $owner: String!
         $name: String!
@@ -37,13 +59,13 @@ export const fetchIssues = createApi({
         }
       }
     `,
-    variables: {
-      owner,
-      name,
-      itemsPerPage,
-      cursor
-    }
-  })
+      variables: {
+        owner,
+        name,
+        itemsPerPage,
+        cursor
+      }
+    }))
 });
 
 export const fetchOrgs = createApi({

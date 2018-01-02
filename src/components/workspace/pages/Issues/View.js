@@ -30,7 +30,7 @@ export default ({ issues, loadMore, hasNextPage, isLoading }) => (
       <Head>Backlog</Head>
       <div>
         {issues &&
-          issues.map(({ id, title, repository }) => (
+          issues.map(({ id, title, createdAt, repository }) => (
             <Issue key={id} className="flex">
               {title}
               <div className="ml-auto">{repository.nameWithOwner}</div>
