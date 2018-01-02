@@ -1,11 +1,11 @@
-import { over, lensPath, compose, equals, path } from "ramda";
+import { none, prop, over, lensPath, compose, equals, path } from "ramda";
 import { createApi } from "core/lib/redux-graphql";
 import * as types from "./types";
 
 export const fetchIssues = createApi({
   name: types.FETCH_ISSUES,
   merge: (payload, current, next) =>
-    !current
+    none(prop("cursor"), payload)
       ? next
       : current.map(repo => {
           const updatedRepo = next.find(
