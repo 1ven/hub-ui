@@ -1,15 +1,16 @@
 import { compose, withProps } from "recompose";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
+import { keys } from "ramda";
 import { createStructuredSelector } from "reselect";
-import { either } from "ramda";
 import { withApi, fetchApi } from "core/data/api";
 import { withActions } from "core/data/redux/hoc";
 import { fetchWorkspaces } from "modules/workspace/api";
-import { fetchIssues } from "modules/github/api";
+import { fetchIssues } from "modules/github/issues/api";
 import { setNextPage } from "modules/interface/issues/actions";
 import { fetchSprints } from "modules/sprint/api";
-import * as issuesSelectors from "modules/github/selectors/api/fetchIssues";
+import * as issuesUISelectors from "modules/interface/issues/selectors";
+import * as issuesSelectors from "modules/github/issues/selectors";
 import * as workspaceSelectors from "modules/workspace/selectors";
 import View from "./View";
 
@@ -19,13 +20,13 @@ export default compose(
   withApi(fetchWorkspaces),
   //
   withProps({
-    itemsPerPage: 10
+    itemsPerPage: 2
   }),
   connect(
     createStructuredSelector({
-      issues: issuesSelectors.getVisibleIssues,
-      nextPageCursors: issuesSelectors.getNextPageCursors,
-      hasNextPage: issuesSelectors.hasNextPage,
+      issues: issuesUISelectors.getVisibleIssues,
+      cursors: issuesSelectors.getCursors,
+      hasNextPage: issuesUISelectors.hasNextPage,
       hasUnfetchedIssues: issuesSelectors.hasUnfetchedIssues,
       repos: workspaceSelectors.getCurrentWorkspaceRepos,
       currentWorkspace: workspaceSelectors.getCurrentWorkspace,
@@ -48,16 +49,19 @@ export default compose(
       }
     }
   })),
-  withActions(({ hasUnfetchedIssues, nextPageCursors, itemsPerPage }) => ({
+  withActions(({ hasUnfetchedIssues, cursors, itemsPerPage }) => ({
     loadMore: () =>
       hasUnfetchedIssues
         ? fetchIssues.request(
-            nextPageCursors.map(({ name, owner, cursor }) => ({
-              name,
-              owner,
-              cursor,
-              itemsPerPage
-            }))
+            keys(cursors).map(repoWithOwner => {
+              const [owner, name] = repoWithOwner.split("/");
+              return {
+                cursor: cursors[repoWithOwner],
+                name,
+                owner,
+                itemsPerPage
+              };
+            })
           )
         : setNextPage()
   }))

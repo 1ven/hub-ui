@@ -1,8 +1,9 @@
 import { compose, path, prop } from "ramda";
 import { createSelector } from "reselect";
-import { scopeSelector } from "../";
 
-export const getApi = createSelector(
+export const scopeSelector = state => state.modules.github.repos;
+
+export const getFetchReposByOrgApi = createSelector(
   [
     compose(path(["api", "fetchReposByOrg"]), scopeSelector),
     (_, { org }) => org
@@ -11,12 +12,12 @@ export const getApi = createSelector(
 );
 
 export const reposLoadingStatus = createSelector(
-  [getApi],
+  [getFetchReposByOrgApi],
   api => api && api.isFetching
 );
 
 export const getAdminReposByOrg = createSelector(
-  [getApi],
+  [getFetchReposByOrgApi],
   api =>
     api &&
     api.data &&
@@ -24,13 +25,13 @@ export const getAdminReposByOrg = createSelector(
 );
 
 export const hasMoreRepos = createSelector(
-  [getApi],
+  [getFetchReposByOrgApi],
   api =>
     api && api.data && api.data.organization.repositories.pageInfo.hasNextPage
 );
 
 export const getReposCursor = createSelector(
-  [getApi],
+  [getFetchReposByOrgApi],
   api =>
     api && api.data && api.data.organization.repositories.pageInfo.endCursor
 );

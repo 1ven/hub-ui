@@ -3,8 +3,8 @@ import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { withActions } from "core/data/redux/hoc";
 import { fetchApi } from "core/data/api";
-import { fetchReposByOrg } from "modules/github/api";
-import * as selectors from "modules/github/selectors/api/fetchReposByOrg";
+import { fetchReposByOrg } from "modules/github/repos/api";
+import * as selectors from "modules/github/repos/selectors";
 import View from "./View";
 
 export default compose(

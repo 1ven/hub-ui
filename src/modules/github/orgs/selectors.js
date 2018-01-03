@@ -1,16 +1,20 @@
 import { compose, path, prop } from "ramda";
 import { createSelector } from "reselect";
-import { scopeSelector } from "../";
 
-export const getApi = compose(path(["api", "fetchOrgs"]), scopeSelector);
+export const scopeSelector = state => state.modules.github.orgs;
+
+export const getFetchOrgsApi = compose(
+  path(["api", "fetchOrgs"]),
+  scopeSelector
+);
 
 export const getLoadingStatus = createSelector(
-  [getApi],
+  [getFetchOrgsApi],
   api => !api.lastUpdated || api.isFetching
 );
 
 export const getOrgs = createSelector(
-  [getApi],
+  [getFetchOrgsApi],
   api => api.data && api.data.viewer.organizations.nodes
 );
 

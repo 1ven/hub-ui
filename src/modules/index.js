@@ -2,8 +2,8 @@ import { combineReducers } from "redux";
 import { combineEpics } from "redux-observable";
 
 import { reducer as interfaceReducer } from "./interface";
+import { reducer as githubReducer } from "./github";
 
-import githubReducer from "./github/reducer";
 import userReducer from "./user/reducer";
 import workspaceReducer from "./workspace/reducer";
 import sprintReducer from "./sprint/reducer";

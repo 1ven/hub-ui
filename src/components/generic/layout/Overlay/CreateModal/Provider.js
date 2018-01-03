@@ -5,8 +5,8 @@ import { createStructuredSelector } from "reselect";
 import { fetchApi } from "core/data/api";
 import { hideCreateWorkspace } from "modules/interface/overlay/actions";
 import { createWorkspace } from "modules/workspace/api";
-import { fetchOrgs } from "modules/github/api";
-import * as selectors from "modules/github/selectors/api/fetchOrgs";
+import { fetchOrgs } from "modules/github/orgs/api";
+import * as selectors from "modules/github/orgs/selectors";
 import View from "./View";
 
 export default compose(

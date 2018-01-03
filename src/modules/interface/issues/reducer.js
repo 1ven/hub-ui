@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
 import { none, prop } from "ramda";
-import { fetchIssues } from "modules/github/api";
+import { fetchIssues } from "modules/github/issues/api";
 import * as types from "./types";
 
 const currentPageReducer = (state = null, action) => {
