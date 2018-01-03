@@ -1,20 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import { colors } from "core/theme";
 import { Overlay } from "components/generic/layout";
 import { SideBody } from "components/workspace/generic";
-
-const Head = styled.div`
-  padding: 0.875rem 1rem;
-  font-weight: 600;
-  background-color: ${colors.gray};
-  border-bottom: 1px solid ${colors.darkGray};
-`;
-
-const Issue = styled.div`
-  padding: 0.625rem 1rem;
-  border-bottom: 1px solid ${colors.darkGray};
-`;
+import { Section } from "./components";
 
 const More = styled.a`
   cursor: pointer;
@@ -24,26 +12,47 @@ const More = styled.a`
   vertical-align: top;
 `;
 
-export default ({ issues, loadMore, hasNextPage, isLoading }) => (
+export default ({
+  issues,
+  sprints,
+  loadMore,
+  hasNextPage,
+  issuesLoading,
+  sprintsLoading
+}) => (
   <Overlay>
     <SideBody>
-      <Head>Backlog</Head>
-      <div>
-        {issues &&
-          issues.map(({ id, title, createdAt, repository }) => (
-            <Issue key={id} className="flex">
-              {title}
-              <div className="ml-auto">{repository.nameWithOwner}</div>
-            </Issue>
-          ))}
-        {isLoading && <div>Loading...</div>}
-      </div>
-      {issues &&
-        hasNextPage && (
-          <div className="col">
-            <More onClick={loadMore}>Load more</More>
+      {sprintsLoading ? (
+        "Loading..."
+      ) : (
+        <div>
+          {sprints &&
+            sprints.map(sprint => (
+              <Section
+                key={sprint.id}
+                title={sprint.title}
+                issues={[]}
+                emptyMessage="You have no issues in this sprint"
+              />
+            ))}
+          <div>
+            {issues && (
+              <Section
+                title="Backlog"
+                issues={issues}
+                emptyMessage="You have no issues in the backlog"
+              />
+            )}
+            {issuesLoading && <div>Loading...</div>}
+            {issues &&
+              hasNextPage && (
+                <div className="col">
+                  <More onClick={loadMore}>Load more</More>
+                </div>
+              )}
           </div>
-        )}
+        </div>
+      )}
     </SideBody>
   </Overlay>
 );

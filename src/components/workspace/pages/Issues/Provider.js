@@ -2,13 +2,15 @@ import { compose, withProps } from "recompose";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { createStructuredSelector } from "reselect";
+import { either } from "ramda";
 import { withApi, fetchApi } from "core/data/api";
 import { withActions } from "core/data/redux/hoc";
 import { fetchWorkspaces } from "modules/workspace/api";
 import { fetchIssues } from "modules/github/api";
 import { setNextPage } from "modules/interface/issues/actions";
+import { fetchSprints } from "modules/sprint/api";
 import * as issuesSelectors from "modules/github/selectors/api/fetchIssues";
-import { getCurrentWorkspaceRepos } from "modules/workspace/selectors";
+import * as workspaceSelectors from "modules/workspace/selectors";
 import View from "./View";
 
 export default compose(
@@ -21,12 +23,15 @@ export default compose(
   }),
   connect(
     createStructuredSelector({
-      repos: getCurrentWorkspaceRepos,
       issues: issuesSelectors.getVisibleIssues,
-      isLoading: issuesSelectors.isLoading,
       nextPageCursors: issuesSelectors.getNextPageCursors,
       hasNextPage: issuesSelectors.hasNextPage,
-      hasUnfetchedIssues: issuesSelectors.hasUnfetchedIssues
+      hasUnfetchedIssues: issuesSelectors.hasUnfetchedIssues,
+      repos: workspaceSelectors.getCurrentWorkspaceRepos,
+      currentWorkspace: workspaceSelectors.getCurrentWorkspace,
+      sprints: fetchSprints.selectors.data,
+      issuesLoading: issuesSelectors.isLoading,
+      sprintsLoading: fetchSprints.selectors.isFetching
     })
   ),
   fetchApi(fetchIssues, ({ repos, itemsPerPage }) => ({
@@ -35,6 +40,13 @@ export default compose(
       name: repo.name,
       itemsPerPage
     }))
+  })),
+  fetchApi(fetchSprints, ({ currentWorkspace }) => ({
+    payload: {
+      params: {
+        id: currentWorkspace.id
+      }
+    }
   })),
   withActions(({ hasUnfetchedIssues, nextPageCursors, itemsPerPage }) => ({
     loadMore: () =>

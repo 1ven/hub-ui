@@ -12,7 +12,7 @@ export default compose(
   lifecycle({
     componentDidMount() {
       this.props.dispatch(
-        push(replaceParams(paths.backlog, this.props.match.params))
+        push(replaceParams(paths.issues, this.props.match.params))
       );
     }
   })
