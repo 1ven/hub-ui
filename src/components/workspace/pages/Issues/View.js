@@ -14,15 +14,16 @@ const More = styled.a`
 
 export default ({
   issues,
+  issuesBySprint,
   sprints,
   loadMore,
   hasNextPage,
   issuesLoading,
-  sprintsLoading
+  pageLoading
 }) => (
   <Overlay>
     <SideBody>
-      {sprintsLoading ? (
+      {pageLoading ? (
         "Loading..."
       ) : (
         <div>
@@ -31,7 +32,7 @@ export default ({
               <Section
                 key={sprint.id}
                 title={sprint.title}
-                issues={[]}
+                issues={issuesBySprint[sprint.id]}
                 emptyMessage="You have no issues in this sprint"
               />
             ))}

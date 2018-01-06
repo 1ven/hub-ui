@@ -14,6 +14,14 @@ const itemsReducer = (state = {}, action) => {
         }),
         state
       );
+    case api.fetchIssueByNumber.types.success:
+      return action.payload.body.reduce(
+        (acc, item) => ({
+          ...acc,
+          ...normalize(item.repository.issue, issue).entities.issues
+        }),
+        state
+      );
     default:
       return state;
   }
@@ -38,7 +46,8 @@ const cursorsReducer = (state = {}, action) => {
 
 export default combineReducers({
   api: combineReducers({
-    fetchIssues: api.fetchIssues.reducer
+    fetchIssues: api.fetchIssues.reducer,
+    fetchIssueByNumber: api.fetchIssueByNumber.reducer
   }),
   items: itemsReducer,
   cursors: cursorsReducer

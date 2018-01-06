@@ -3,7 +3,7 @@ import * as types from "./types";
 
 export const fetchIssues = createApi({
   name: types.FETCH_ISSUES,
-  request: (payload, state) =>
+  request: payload =>
     payload.map(({ owner, name, itemsPerPage, cursor }) => ({
       // batching
       // queries: ({ repos }) => [``, ``],
@@ -29,8 +29,9 @@ export const fetchIssues = createApi({
               id
               title
               createdAt
+              number
               repository {
-                nameWithOwner,
+                nameWithOwner
               }
             }
           }
@@ -42,6 +43,37 @@ export const fetchIssues = createApi({
         name,
         itemsPerPage,
         cursor
+      }
+    }))
+});
+
+export const fetchIssueByNumber = createApi({
+  name: types.FETCH_ISSUE_BY_NUMBER,
+  request: payload =>
+    payload.map(({ owner, name, number }) => ({
+      query: `
+          query IssueByNumber(
+            $owner: String!
+            $name: String!
+            $number: Int!
+          ) {
+            repository(owner: $owner, name: $name) {
+              issue(number: $number) {
+                id
+                title
+                createdAt
+                number
+                repository {
+                  nameWithOwner
+                }
+              }
+            }
+          }
+      `,
+      variables: {
+        owner,
+        name,
+        number
       }
     }))
 });

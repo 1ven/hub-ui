@@ -8,18 +8,18 @@ export default (genericConfig = {}) => store => next => async action => {
     return next(action);
   }
 
-  next({
-    type: action.types.request,
-    payload: action.payload
-  });
-
   const config = mergeDeepLeft(genericConfig, action.config);
   const request =
     typeof action.request === "function"
       ? action.request(action.payload)
       : action.request;
 
-  if (request instanceof Array) {
+  if (request instanceof Array && request.length) {
+    next({
+      type: action.types.request,
+      payload: action.payload
+    });
+
     try {
       const data = await Promise.all(
         request.map(item => fetchApi(item, config))
@@ -34,6 +34,11 @@ export default (genericConfig = {}) => store => next => async action => {
   }
 
   try {
+    next({
+      type: action.types.request,
+      payload: action.payload
+    });
+
     const data = await fetchApi(request, config);
 
     fetchingSuccess(data, action, next);

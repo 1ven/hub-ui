@@ -1,7 +1,7 @@
 import { compose, withProps } from "recompose";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { keys } from "ramda";
+import { keys, either } from "ramda";
 import { createStructuredSelector } from "reselect";
 import { withApi, fetchApi } from "core/data/api";
 import { withActions } from "core/data/redux/hoc";
@@ -12,6 +12,7 @@ import { fetchSprints } from "modules/sprint/api";
 import * as issuesUISelectors from "modules/interface/issues/selectors";
 import * as issuesSelectors from "modules/github/issues/selectors";
 import * as workspaceSelectors from "modules/workspace/selectors";
+import * as sprintSelectors from "modules/sprint/selectors";
 import View from "./View";
 
 export default compose(
@@ -24,6 +25,10 @@ export default compose(
   }),
   connect(
     createStructuredSelector({
+      pageLoading: either(
+        fetchSprints.selectors.isFetching,
+        issuesSelectors.issueByNumberLoading
+      ),
       issues: issuesUISelectors.getVisibleIssues,
       cursors: issuesSelectors.getCursors,
       hasNextPage: issuesUISelectors.hasNextPage,
@@ -31,8 +36,8 @@ export default compose(
       repos: workspaceSelectors.getCurrentWorkspaceRepos,
       currentWorkspace: workspaceSelectors.getCurrentWorkspace,
       sprints: fetchSprints.selectors.data,
-      issuesLoading: issuesSelectors.isLoading,
-      sprintsLoading: fetchSprints.selectors.isFetching
+      issuesLoading: issuesSelectors.issuesLoading,
+      issuesBySprint: sprintSelectors.getCachedIssuesBySprint
     })
   ),
   fetchApi(fetchIssues, ({ repos, itemsPerPage }) => ({

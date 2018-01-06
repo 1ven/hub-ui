@@ -10,6 +10,7 @@ import sprintReducer from "./sprint/reducer";
 
 import userEpic from "./user/epic";
 import workspaceEpic from "./workspace/epic";
+import sprintEpic from "./sprint/epic";
 
 export const reducer = combineReducers({
   interface: interfaceReducer,
@@ -19,4 +20,4 @@ export const reducer = combineReducers({
   sprint: sprintReducer
 });
 
-export const epic = combineEpics(userEpic, workspaceEpic);
+export const epic = combineEpics(userEpic, workspaceEpic, sprintEpic);
