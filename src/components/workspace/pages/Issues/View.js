@@ -27,25 +27,24 @@ export default ({
         "Loading..."
       ) : (
         <div>
-          {sprints &&
-            sprints.map(sprint => (
-              <Section
-                key={sprint.id}
-                title={sprint.title}
-                issues={issuesBySprint[sprint.id]}
-                emptyMessage="You have no issues in this sprint"
-              />
-            ))}
+          {sprints.map(sprint => (
+            <Section
+              key={sprint.id}
+              title={sprint.title}
+              issues={issuesBySprint[sprint.id]}
+              emptyMessage="You have no issues in this sprint"
+            />
+          ))}
           <div>
-            {issues && (
+            {
               <Section
                 title="Backlog"
                 issues={issues}
                 emptyMessage="You have no issues in the backlog"
               />
-            )}
+            }
             {issuesLoading && <div>Loading...</div>}
-            {issues &&
+            {!issuesLoading &&
               hasNextPage && (
                 <div className="col">
                   <More onClick={loadMore}>Load more</More>

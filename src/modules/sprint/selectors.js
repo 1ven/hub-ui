@@ -1,5 +1,6 @@
 import { createSelector } from "reselect";
 import { innerJoin, flip, compose, path } from "ramda";
+import { createLoadingSelector } from "core/data/api/utils";
 import * as issuesSelectors from "modules/github/issues/selectors";
 import * as utils from "./utils";
 
@@ -10,6 +11,7 @@ export const getFetchSprintsApi = compose(
   scopeSelector
 );
 
+// TODO: think, where it should be
 export const getCachedIssuesBySprint = createSelector(
   [issuesSelectors.getIssuesList, getFetchSprintsApi],
   (issues, sprintsApi) =>
@@ -26,3 +28,5 @@ export const getCachedIssuesBySprint = createSelector(
       {}
     )
 );
+
+export const sprintsLoading = createLoadingSelector(getFetchSprintsApi);

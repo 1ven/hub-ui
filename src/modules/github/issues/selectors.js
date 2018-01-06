@@ -1,5 +1,6 @@
 import { length, values, compose, prop, path } from "ramda";
 import { createSelector } from "reselect";
+import { createLoadingSelector } from "core/data/api/utils";
 
 export const scopeSelector = state => state.modules.github.issues;
 
@@ -12,16 +13,10 @@ export const fetchIssueByNumberApi = compose(
   scopeSelector
 );
 
-export const issueByNumberLoading = compose(
-  prop("isFetching"),
+export const issueByNumberLoading = createLoadingSelector(
   fetchIssueByNumberApi
 );
-export const issuesLoading = compose(prop("isFetching"), fetchIssuesApi);
-export const areIssuesLoaded = compose(
-  Boolean,
-  prop("lastUpdated"),
-  fetchIssuesApi
-);
+export const issuesLoading = createLoadingSelector(fetchIssuesApi);
 export const getIssues = compose(prop("items"), scopeSelector);
 export const getCursors = compose(prop("cursors"), scopeSelector);
 export const hasUnfetchedIssues = compose(length, values, getCursors);

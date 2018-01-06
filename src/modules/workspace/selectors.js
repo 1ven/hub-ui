@@ -13,23 +13,17 @@ export const fetchWorkspacesApi = compose(
   scopeSelector
 );
 
-export const getCurrentWorkspace = createSelector(
-  [fetchWorkspacesApi, (_, { match }) => match],
-  ({ data }, { params }) =>
-    data &&
-    // TODO: use function to match router params with workspace data
-    data.find(w => w.assigned_to === params.org && w.slug === params.slug)
+export const getWorkspaces = createSelector(
+  [fetchWorkspacesApi],
+  api => api.data
 );
 
-export const getCurrentWorkspaceRepos = createSelector(
-  [getCurrentWorkspace],
-  workspace =>
-    workspace &&
-    workspace.repos.map(repo => {
-      const [owner, name] = repo.split("/");
-      return {
-        owner,
-        name
-      };
-    })
+// TODO: move somewhere with ui selectors
+export const getCurrentWorkspaceId = createSelector(
+  [getWorkspaces, (_, { match }) => match],
+  (workspaces, { params }) =>
+    workspaces &&
+    // TODO: use function to match router params with workspace data
+    workspaces.find(w => w.assigned_to === params.org && w.slug === params.slug)
+      .id
 );

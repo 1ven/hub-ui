@@ -1,7 +1,10 @@
 import { combineReducers } from "redux";
 import { combineEpics } from "redux-observable";
 
-import { reducer as interfaceReducer } from "./interface";
+import {
+  reducer as interfaceReducer,
+  epic as interfaceEpic
+} from "./interface";
 import { reducer as githubReducer } from "./github";
 
 import userReducer from "./user/reducer";
@@ -10,7 +13,6 @@ import sprintReducer from "./sprint/reducer";
 
 import userEpic from "./user/epic";
 import workspaceEpic from "./workspace/epic";
-import sprintEpic from "./sprint/epic";
 
 export const reducer = combineReducers({
   interface: interfaceReducer,
@@ -20,4 +22,4 @@ export const reducer = combineReducers({
   sprint: sprintReducer
 });
 
-export const epic = combineEpics(userEpic, workspaceEpic, sprintEpic);
+export const epic = combineEpics(userEpic, workspaceEpic, interfaceEpic);

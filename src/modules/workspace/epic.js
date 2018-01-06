@@ -18,6 +18,7 @@ export default combineEpics(
         })
       );
     }),
+  // TODO: move to interface/overlay module
   action$ =>
     action$
       .ofType(api.createWorkspace.types.success)

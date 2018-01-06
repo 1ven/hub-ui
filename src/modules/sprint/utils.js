@@ -1,5 +1,6 @@
 import { chain, prop } from "ramda";
 
+// TODO: rename to model
 export const areIssuesEqual = (
   { issue_number, issue_repo },
   { repository, number }

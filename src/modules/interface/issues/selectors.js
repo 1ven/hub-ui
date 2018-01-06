@@ -1,10 +1,11 @@
 import { compose, prop } from "ramda";
 import { createSelector } from "reselect";
 import * as issuesSelectors from "modules/github/issues/selectors";
+import * as sprintSelectors from "modules/sprint/selectors";
 
 export const scopeSelector = state => state.modules.interface.issues;
-export const getItemsPerPage = (_, props) => props.itemsPerPage;
 export const getCurrentPage = compose(prop("currentPage"), scopeSelector);
+export const getItemsPerPage = compose(prop("itemsPerPage"), scopeSelector);
 
 export const getVisibleIssues = createSelector(
   [issuesSelectors.getIssuesList, getCurrentPage, getItemsPerPage],
@@ -22,4 +23,14 @@ export const hasUndisplayedIssues = createSelector(
 export const hasNextPage = createSelector(
   [issuesSelectors.hasUnfetchedIssues, hasUndisplayedIssues],
   (unfetched, undisplayed) => unfetched || undisplayed
+);
+
+export const isPageLoading = createSelector(
+  [
+    issuesSelectors.issuesLoading,
+    issuesSelectors.issueByNumberLoading,
+    sprintSelectors.sprintsLoading
+  ],
+  (issuesLoading, issueByNumberLoading, sprintsLoading) =>
+    issuesLoading || issueByNumberLoading || sprintsLoading
 );
