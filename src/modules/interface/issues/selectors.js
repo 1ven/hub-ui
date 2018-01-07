@@ -1,23 +1,35 @@
-import { compose, prop } from "ramda";
+import { compose, prop, sort, take } from "ramda";
 import { createSelector } from "reselect";
 import * as issuesSelectors from "modules/github/issues/selectors";
+import * as issuesModel from "modules/github/issues/model";
 import * as sprintSelectors from "modules/sprint/selectors";
+import * as model from "./model";
 
 export const scopeSelector = state => state.modules.interface.issues;
 export const getCurrentPage = compose(prop("currentPage"), scopeSelector);
 export const getItemsPerPage = compose(prop("itemsPerPage"), scopeSelector);
 
+export const getBacklogIssues = createSelector(
+  [issuesSelectors.getIssuesList, sprintSelectors.getSprintsIssues],
+  (issues, sprintsIssues) =>
+    sprintsIssues && model.getBacklogIssues(issues, sprintsIssues)
+);
+
 export const getVisibleIssues = createSelector(
-  [issuesSelectors.getIssuesList, getCurrentPage, getItemsPerPage],
-  (issues, currentPage, itemsPerPage) =>
-    issues
-      .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-      .filter((_, i) => i < itemsPerPage * currentPage)
+  [getBacklogIssues, getCurrentPage, getItemsPerPage],
+  (backlogIssues, currentPage, itemsPerPage) =>
+    backlogIssues &&
+    compose(take(itemsPerPage * currentPage), sort(issuesModel.compareByDate))(
+      backlogIssues
+    )
 );
 
 export const hasUndisplayedIssues = createSelector(
-  [issuesSelectors.getIssuesList, getVisibleIssues],
-  (issues, visibleIssues) => issues.length > visibleIssues.length
+  [getBacklogIssues, getVisibleIssues],
+  (backlogIssues, visibleIssues) =>
+    visibleIssues &&
+    backlogIssues &&
+    backlogIssues.length > visibleIssues.length
 );
 
 export const hasNextPage = createSelector(

@@ -14,7 +14,7 @@ const currentPageReducer = (state = null, action) => {
   }
 };
 
-const itemsPerPageReducer = (state = 2, action) => state;
+const itemsPerPageReducer = (state = 10, action) => state;
 
 export default combineReducers({
   currentPage: currentPageReducer,

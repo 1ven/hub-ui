@@ -29,4 +29,9 @@ export const getCachedIssuesBySprint = createSelector(
     )
 );
 
+export const getSprintsIssues = createSelector(
+  [getFetchSprintsApi],
+  api => api.data && utils.getAllSprintsIssues(api.data)
+);
+
 export const sprintsLoading = createLoadingSelector(getFetchSprintsApi);
