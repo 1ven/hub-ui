@@ -1,9 +1,7 @@
-import { createApi } from "core/lib/redux-graphql";
-import * as types from "./types";
+import { graphql } from "core/data/api/fetch";
 
-export const fetchOrgs = createApi({
-  name: types.FETCH_ORGS,
-  request: {
+export const fetchOrgs = () =>
+  graphql({
     query: `
       query {
         viewer {
@@ -16,5 +14,4 @@ export const fetchOrgs = createApi({
         }
       }
     `
-  }
-});
+  });

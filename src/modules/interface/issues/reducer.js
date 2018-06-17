@@ -5,8 +5,8 @@ import * as types from "./types";
 
 const currentPageReducer = (state = null, action) => {
   switch (action.type) {
-    case fetchIssues.types.success:
-      return none(prop("cursor"), action.payload.request) ? 1 : state + 1;
+    // case fetchIssues.types.success:
+    //   return none(prop("cursor"), action.payload.request) ? 1 : state + 1;
     case types.LOAD_NEXT_PAGE_FINISH:
       return state + 1;
     default:
@@ -14,7 +14,7 @@ const currentPageReducer = (state = null, action) => {
   }
 };
 
-const itemsPerPageReducer = (state = 10, action) => state;
+const itemsPerPageReducer = (state = 2, action) => state;
 
 export default combineReducers({
   currentPage: currentPageReducer,

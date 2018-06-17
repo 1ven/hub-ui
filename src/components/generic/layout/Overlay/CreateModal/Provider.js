@@ -5,6 +5,7 @@ import { createStructuredSelector } from "reselect";
 import { fetchApi } from "core/data/api";
 import { hideCreateWorkspace } from "modules/interface/overlay/actions";
 import { createWorkspace } from "modules/workspace/api";
+import * as workspaceSelectors from "modules/workspace/selectors";
 import { fetchOrgs } from "modules/github/orgs/api";
 import * as selectors from "modules/github/orgs/selectors";
 import View from "./View";
@@ -12,14 +13,14 @@ import View from "./View";
 export default compose(
   connect(
     createStructuredSelector({
-      isCreating: createWorkspace.selectors.isFetching,
+      isCreating: workspaceSelectors.isCreating,
       isLoading: selectors.getLoadingStatus,
       adminOrgs: selectors.getAdminOrgs,
       orgs: selectors.getOrgs
     }),
     {
       onClose: hideCreateWorkspace,
-      onSubmit: values => createWorkspace.request({ body: values })
+      onSubmit: createWorkspace.request
     }
   ),
   fetchApi(fetchOrgs, ({ orgs }) => ({

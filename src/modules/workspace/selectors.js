@@ -3,7 +3,7 @@ import { createSelector } from "reselect";
 
 export const scopeSelector = state => state.modules.workspace;
 
-export const getCreateWorkspaceApi = compose(
+export const createWorkspaceApi = compose(
   path(["api", "createWorkspace"]),
   scopeSelector
 );
@@ -16,6 +16,11 @@ export const fetchWorkspacesApi = compose(
 export const getWorkspaces = createSelector(
   [fetchWorkspacesApi],
   api => api.data
+);
+
+export const isCreating = createSelector(
+  [createWorkspaceApi],
+  api => api.isFetching
 );
 
 // TODO: move somewhere with ui selectors

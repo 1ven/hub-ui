@@ -1,10 +1,14 @@
 import React from "react";
 import { withProps, compose, lifecycle } from "recompose";
+import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
 import { T } from "ramda";
 import { hoc } from "core/data/redux";
-import { withApi } from "core/data/api";
+import { fetchApi } from "core/data/api";
 import { fetchWorkspaces } from "modules/workspace/api";
+import { fetchWorkspacesApi } from "modules/workspace/selectors";
 import { fetchUser } from "../api";
+import { fetchUserApi } from "../selectors";
 import { authorizationRedirect } from "../actions";
 import authenticated from "./authenticated";
 
@@ -13,17 +17,21 @@ export default (test = T) => Component =>
     authenticated,
     // NOTE: we are using `fetchUser` just for example, as we are getting workspaces from api below
     // will need `fetchUser` api in future
-    withApi(fetchUser, api => ({
-      user: api.data
-    })),
-    withApi(fetchWorkspaces, api => ({
-      workspaces: api.data
-    })),
+    fetchApi(fetchUser, {
+      selector: fetchUserApi,
+      key: "user",
+      sync: true
+    }),
+    fetchApi(fetchWorkspaces, {
+      selector: fetchWorkspacesApi,
+      key: "workspaces",
+      sync: true
+    }),
     withProps(({ workspaces, user }) => ({
-      isAllowed: test({ workspaces, user })
+      isAllowed: test({ workspaces: workspaces.data, user: user.data })
     })),
     hoc.withActions({
-      authorizationRedirect
+      authorizationRedirect: () => authorizationRedirect
     }),
     lifecycle({
       componentDidMount() {
@@ -34,8 +42,13 @@ export default (test = T) => Component =>
           authorizationRedirect
         } = this.props;
 
+        console.log(this.props);
+
         if (!isAllowed) {
-          authorizationRedirect({ user, workspaces });
+          authorizationRedirect({
+            user: user.data,
+            workspaces: workspaces.data
+          });
         }
       }
     })

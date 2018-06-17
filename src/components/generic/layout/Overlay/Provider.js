@@ -3,22 +3,21 @@ import { withRouter } from "react-router-dom";
 import { find, prop } from "ramda";
 import { createStructuredSelector } from "reselect";
 import { connect } from "react-redux";
-import { withApi } from "core/data/api";
+import { fetchApi } from "core/data/api";
 import { showCreateWorkspace } from "modules/interface/overlay/actions";
 import { isCreateWorkspaceVisible } from "modules/interface/overlay/selectors";
 import { switchWorkspace } from "modules/workspace/actions";
+import { fetchWorkspacesApi } from "modules/workspace/selectors";
 import { fetchWorkspaces } from "modules/workspace/api";
 import View from "./View";
 
 export default compose(
   withRouter,
-  withApi(fetchWorkspaces, api => ({
-    isLoading: !api.lastUpdated,
-    workspaces: api.data
-  })),
+  // fetchApi(fetchWorkspaces),
   connect(
     createStructuredSelector({
-      isModalVisible: isCreateWorkspaceVisible
+      isModalVisible: isCreateWorkspaceVisible,
+      workspaces: fetchWorkspacesApi
     }),
     {
       onWorkspaceChange: switchWorkspace,
@@ -33,6 +32,6 @@ export default compose(
         ({ assigned_to, slug }) =>
           assigned_to === match.params.org && slug === match.params.slug
       )
-    )(workspaces)
+    )(workspaces.data)
   }))
 )(View);

@@ -40,23 +40,24 @@ export default ({
   onWorkspaceChange,
   onCreateWorkspace,
   selected,
-  isLoading,
   isModalVisible
 }) =>
-  isLoading ? (
+  workspaces.isFetching ? (
     <div>Loading...</div>
   ) : (
     <div className="h-100 flex flex-column">
       <Header className="w-100 container flex items-center">
-        {workspaces.length > 0 && (
+        {workspaces.data.length > 0 && (
           <Switch
             onChange={e =>
-              onWorkspaceChange(workspaces.find(w => w.id === +e.target.value))
+              onWorkspaceChange(
+                workspaces.data.find(w => w.id === +e.target.value)
+              )
             }
             value={selected}
           >
             <option disabled>Select workspace</option>
-            {workspaces.map(w => (
+            {workspaces.data.map(w => (
               <option key={w.id} value={w.id}>
                 {w.assigned_to + "/" + w.slug}
               </option>

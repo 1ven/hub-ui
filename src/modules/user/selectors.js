@@ -4,7 +4,4 @@ export const scopeSelector = state => state.modules.user;
 
 export const getToken = compose(prop("githubToken"), scopeSelector);
 export const isAuthenticated = compose(Boolean, getToken);
-export const getFetchUserApi = compose(
-  path(["api", "fetchUser"]),
-  scopeSelector
-);
+export const fetchUserApi = compose(path(["api", "fetchUser"]), scopeSelector);

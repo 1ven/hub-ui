@@ -1,13 +1,12 @@
-import { createApi } from "core/lib/redux-graphql";
-import * as types from "./types";
+import { graphql } from "core/data/api/fetch";
 
-export const fetchIssues = createApi({
-  name: types.FETCH_ISSUES,
-  request: payload =>
-    payload.map(({ owner, name, itemsPerPage, cursor }) => ({
-      // batching
-      // queries: ({ repos }) => [``, ``],
-      query: `
+export const fetchIssues = payload =>
+  Promise.all(
+    payload.map(({ owner, name, itemsPerPage, cursor }) =>
+      graphql({
+        // batching
+        // queries: ({ repos }) => [``, ``],
+        query: `
       query IssuesByRepo(
         $owner: String!
         $name: String!
@@ -38,20 +37,21 @@ export const fetchIssues = createApi({
         }
       }
     `,
-      variables: {
-        owner,
-        name,
-        itemsPerPage,
-        cursor
-      }
-    }))
-});
+        variables: {
+          owner,
+          name,
+          itemsPerPage,
+          cursor
+        }
+      })
+    )
+  );
 
-export const fetchIssueByNumber = createApi({
-  name: types.FETCH_ISSUE_BY_NUMBER,
-  request: payload =>
-    payload.map(({ owner, name, number }) => ({
-      query: `
+export const fetchIssueByNumber = payload =>
+  Promise.all(
+    payload.map(({ owner, name, number }) =>
+      graphql({
+        query: `
           query IssueByNumber(
             $owner: String!
             $name: String!
@@ -70,10 +70,11 @@ export const fetchIssueByNumber = createApi({
             }
           }
       `,
-      variables: {
-        owner,
-        name,
-        number
-      }
-    }))
-});
+        variables: {
+          owner,
+          name,
+          number
+        }
+      })
+    )
+  );
